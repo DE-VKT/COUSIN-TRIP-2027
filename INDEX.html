@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cousins' Trip 2027 — From Ahmedabad (Jan 16–23)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #263349;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dark: #0284c7;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --purple: #a78bfa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.25rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 4rem;
+    }
+
+    /* Filter Pills */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    /* Grid View */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.15rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .badge-intl { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+    .badge-dom { background: rgba(52, 211, 153, 0.15); color: var(--green); }
+
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-sub {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .meta-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.85rem;
+      font-size: 0.82rem;
+    }
+
+    .meta-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .meta-item strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .card-cta {
+      margin-top: 1rem;
+      text-align: right;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* Detail View */
+    #detail-view {
+      display: none;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.25rem;
+      margin: -1.5rem -1.25rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      border-color: #7dd3fc;
+    }
+
+    .counter {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+      padding: 0 0.4rem;
+    }
+
+    .hero-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-box h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-tagline {
+      color: var(--muted);
+      margin-bottom: 1.15rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .stat-card {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+    }
+
+    .stat-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-card strong {
+      font-size: 0.95rem;
+    }
+
+    .note-box {
+      margin-top: 1rem;
+      background: rgba(251, 191, 36, 0.1);
+      border-left: 3px solid var(--amber);
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #fde68a;
+    }
+
+    .itinerary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* Accordion / Dropdowns */
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 0.85rem;
+      overflow: hidden;
+    }
+
+    .day-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      padding: 1.1rem 1.25rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: background 0.15s ease;
+    }
+
+    .day-trigger:hover {
+      background: var(--surface-hover);
+    }
+
+    .day-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .day-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .day-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .day-travel {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .chevron {
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: transform 0.22s ease;
+      flex-shrink: 0;
+    }
+
+    .day-card.open .chevron {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    .day-body {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.45);
+      padding: 1.1rem 1.25rem 1.25rem;
+    }
+
+    .day-card.open .day-body {
+      display: block;
+    }
+
+    .timeline {
+      list-style: none;
+      border-left: 2px solid var(--border);
+      margin-left: 0.4rem;
+      padding-left: 1.15rem;
+    }
+
+    .timeline li {
+      position: relative;
+      margin-bottom: 0.9rem;
+    }
+
+    .timeline li:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: -1.52rem;
+      top: 0.42rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+
+    .time-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-right: 0.4rem;
+    }
+
+    .step-text {
+      font-size: 0.92rem;
+      color: #e2e8f0;
+    }
+
+    .bottom-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .meta-list { grid-template-columns: 1fr; }
+      .sticky-nav { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cousins' Trip Planner 2027</h1>
+    <p>Departure from Ahmedabad (AMD) • Jan 16 to Jan 22/23, 2027 • Click any destination to explore its day-by-day schedule &amp; step-by-step dropdowns.</p>
+  </header>
+
+  <div class="container">
+    <!-- HOME VIEW -->
+    <div id="home-view">
+      <div class="filters" id="filter-bar">
+        <button class="filter-btn active" data-filter="all">All (13)</button>
+        <button class="filter-btn" data-filter="international">International (9)</button>
+        <button class="filter-btn" data-filter="domestic">Domestic (4)</button>
+        <button class="filter-btn" data-filter="cold">Snow / Cold</button>
+        <button class="filter-btn" data-filter="warm">Warm / Beach</button>
+      </div>
+      <div class="grid" id="destinations-grid"></div>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div id="detail-view">
+      <div class="sticky-nav">
+        <button class="btn" onclick="showHome()">← All Destinations</button>
+        <div class="nav-group">
+          <button class="btn" id="top-prev-btn" onclick="navigate(-1)">← Prev</button>
+          <span class="counter" id="dest-counter">1 / 13</span>
+          <button class="btn btn-primary" id="top-next-btn" onclick="navigate(1)">Next →</button>
+        </div>
+      </div>
+
+      <div class="hero-box" id="detail-hero"></div>
+
+      <div class="itinerary-header">
+        <h3>Day-Wise Itinerary (Click any day to expand schedule)</h3>
+        <button class="btn" id="toggle-all-btn" onclick="toggleAllDays()">Expand All Days</button>
+      </div>
+
+      <div id="days-container"></div>
+
+      <div class="bottom-nav">
+        <button class="btn" id="bot-prev-btn" onclick="navigate(-1)">← Previous</button>
+        <button class="btn" onclick="showHome()">Back to Main List</button>
+        <button class="btn btn-primary" id="bot-next-btn" onclick="navigate(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const destinations = [
+      {
+        id: "nepal",
+        name: "Nepal",
+        subtitle: "Kathmandu, Pokhara & Chitwan",
+        type: "international",
+        climate: "cold",
+        temp: "18°C Day / 2°C Night",
+        budget: "₹35,000 – ₹45,000",
+        flight: "~5–6 hrs (1 stop via Delhi)",
+        visa: "No Visa Required (Indians)",
+        bestFor: "Mountains, adventure, budget-friendly",
+        note: "Carry original Passport or Voter ID. January offers crystal-clear Himalayan views.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Kathmandu & Thamel",
+            travel: "Flight ~5–6 hrs | Airport to Hotel 30 min",
+            steps: [
+              { time: "06:00 AM", text: "Wake up & depart for Ahmedabad Airport (AMD)." },
+              { time: "08:30 AM", text: "Board flight AMD → Kathmandu (via Delhi)." },
+              { time: "03:00 PM", text: "Land in Kathmandu, private cab pickup & hotel check-in." },
+              { time: "05:30 PM", text: "Walk around Thamel market, currency exchange & souvenir shopping." },
+              { time: "08:30 PM", text: "Group dinner & live music at a Thamel rooftop cafe." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Kathmandu Heritage Sightseeing",
+            travel: "Local cab ~1.5 hrs total",
+            steps: [
+              { time: "07:30 AM", text: "Wake up & hotel breakfast." },
+              { time: "09:00 AM", text: "Cab pickup to Pashupatinath Temple." },
+              { time: "11:30 AM", text: "Drive to Boudhanath Stupa & lunch at a monastery-view cafe." },
+              { time: "02:30 PM", text: "Visit Swayambhunath (Monkey Temple) for panoramic city views." },
+              { time: "05:30 PM", text: "Explore Kathmandu Durbar Square & return to hotel." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Kathmandu to Pokhara",
+            travel: "Drive 6–7 hrs (or 25-min flight)",
+            steps: [
+              { time: "06:30 AM", text: "Wake up, pack bags & early breakfast." },
+              { time: "07:30 AM", text: "Private cab pickup for scenic highway drive to Pokhara." },
+              { time: "01:00 PM", text: "Riverside highway lunch stop near Kurintar." },
+              { time: "03:00 PM", text: "Reach Pokhara, check in to lakeside hotel & rest." },
+              { time: "05:30 PM", text: "Sunset boating on Phewa Lake & lakeside cafe hopping." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Sarangkot Sunrise & Pokhara Adventure",
+            travel: "Local cab ~1.5 hrs total",
+            steps: [
+              { time: "05:15 AM", text: "Early wake-up call & cab to Sarangkot viewpoint (30 min)." },
+              { time: "06:15 AM", text: "Watch golden sunrise over the Annapurna & Machhapuchhre peaks." },
+              { time: "08:30 AM", text: "Return to hotel for breakfast & quick freshen up." },
+              { time: "11:00 AM", text: "Adventure slot: Paragliding / Bungee / Ziplining." },
+              { time: "03:30 PM", text: "Visit Devi's Fall, Gupteshwor Cave & World Peace Pagoda." },
+              { time: "08:00 PM", text: "Cousins' bonfire/dinner night by Lakeside." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Pokhara to Chitwan National Park",
+            travel: "Drive 4–5 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:00 AM", text: "Cab pickup & drive down to Chitwan." },
+              { time: "02:00 PM", text: "Check in to jungle resort & buffet lunch." },
+              { time: "04:30 PM", text: "Sunset walk along Rapti River bank." },
+              { time: "07:00 PM", text: "Tharu Cultural Stick Dance show followed by dinner." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Chitwan Jeep Safari & Return to Kathmandu",
+            travel: "Safari 3 hrs | Drive 5–6 hrs",
+            steps: [
+              { time: "06:00 AM", text: "Wake up, tea/coffee & board open-top safari jeep." },
+              { time: "06:30 AM", text: "Chitwan National Park Safari (spot one-horned rhinos & deer)." },
+              { time: "10:00 AM", text: "Return to resort, breakfast & checkout." },
+              { time: "11:30 AM", text: "Cab pickup for drive back to Kathmandu." },
+              { time: "06:00 PM", text: "Reach Kathmandu, check in & farewell dinner." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Bhaktapur Buffer & Fly Home to Ahmedabad",
+            travel: "Flight ~5–6 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:30 AM", text: "Optional quick visit to Bhaktapur Durbar Square (45 min)." },
+              { time: "01:00 PM", text: "Cab drop to Kathmandu Airport for return flight to AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sikkim",
+        name: "Sikkim",
+        subtitle: "Gangtok, Tsomgo Lake & North Sikkim",
+        type: "domestic",
+        climate: "cold",
+        temp: "9°C / 0°C (Sub-zero North)",
+        budget: "₹32,000 – ₹42,000",
+        flight: "~5–6 hrs (to Bagdogra)",
+        visa: "Domestic (Inner-Line Permit)",
+        bestFor: "Heavy snow, road trips, monasteries",
+        note: "Carry 4 passport photos & Voter ID/Passport for North Sikkim permits. Heavy snow can occasionally close Nathula Pass.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Bagdogra & Drive to Gangtok",
+            travel: "Flight ~5–6 hrs | Drive 4.5 hrs",
+            steps: [
+              { time: "05:30 AM", text: "Depart for AMD Airport; fly to Bagdogra (IXB)." },
+              { time: "12:30 PM", text: "Land at Bagdogra, meet private Innova/Xylo driver." },
+              { time: "01:00 PM", text: "Start scenic drive along Teesta River to Gangtok." },
+              { time: "05:30 PM", text: "Reach Gangtok, check in & evening stroll at MG Marg." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Tsomgo Lake & Baba Mandir",
+            travel: "Drive 2 hrs each way",
+            steps: [
+              { time: "06:30 AM", text: "Wake up, layer up in heavy thermals & breakfast." },
+              { time: "08:00 AM", text: "Cab pickup for Tsomgo (Changu) Lake." },
+              { time: "10:30 AM", text: "Snow views, yak ride & hot Maggi at frozen Tsomgo Lake." },
+              { time: "12:30 PM", text: "Drive to Baba Harbhajan Singh Mandir (and Nathula if open)." },
+              { time: "04:30 PM", text: "Return to Gangtok; evening cafes & momos on MG Marg." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Gangtok to Lachung (North Sikkim)",
+            travel: "Drive 6–7 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & pack light overnight duffel bags." },
+              { time: "09:00 AM", text: "Cab pickup for North Sikkim mountain road trip." },
+              { time: "12:30 PM", text: "Stop at Seven Sisters Waterfall & Naga Falls for photos." },
+              { time: "01:30 PM", text: "Lunch stop at Mangan/Chungthang." },
+              { time: "05:00 PM", text: "Arrive in snowy Lachung village, check in & bonfire dinner." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Yumthang Valley & Zero Point Snow Play",
+            travel: "Drive 1.5–2 hrs each way",
+            steps: [
+              { time: "06:30 AM", text: "Wake up, rent snow boots/jackets if needed & breakfast." },
+              { time: "07:30 AM", text: "Drive to Yumthang Valley (Valley of Flowers in snow)." },
+              { time: "09:30 AM", text: "Continue to Zero Point (Yumesamdong) for deep snow play." },
+              { time: "01:30 PM", text: "Return to Lachung hotel for hot lunch." },
+              { time: "04:00 PM", text: "Relax at Lachung riverside & group games at night." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Lachung Back to Gangtok",
+            travel: "Drive 6–7 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:30 AM", text: "Begin return mountain drive to Gangtok." },
+              { time: "01:00 PM", text: "Lunch en route." },
+              { time: "04:00 PM", text: "Reach Gangtok, check in & hot shower/rest." },
+              { time: "07:30 PM", text: "Dinner & nightlife at a Gangtok lounge." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Gangtok Local Sightseeing",
+            travel: "Local cab ~2 hrs total",
+            steps: [
+              { time: "08:30 AM", text: "Relaxed wake-up & breakfast." },
+              { time: "10:00 AM", text: "Cab pickup: Rumtek Monastery & Ganesh Tok." },
+              { time: "01:30 PM", text: "Lunch followed by Gangtok Ropeway cable car ride." },
+              { time: "04:30 PM", text: "Last-minute shopping at Lal Bazaar & MG Marg." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Gangtok to Bagdogra & Fly to Ahmedabad",
+            travel: "Drive 4.5 hrs | Flight ~5–6 hrs",
+            steps: [
+              { time: "06:30 AM", text: "Early wake-up, breakfast & checkout." },
+              { time: "07:30 AM", text: "Cab departure for Bagdogra Airport." },
+              { time: "12:30 PM", text: "Reach IXB Airport & board return flight to AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "bhutan",
+        name: "Bhutan",
+        subtitle: "Phuentsholing, Thimphu, Punakha & Paro",
+        type: "international",
+        climate: "cold",
+        temp: "14°C Day / 2°C Night",
+        budget: "₹55,000 – ₹70,000",
+        flight: "~6 hrs (to Bagdogra) + road",
+        visa: "Entry Permit + ₹1,200/night SDF",
+        bestFor: "Peaceful winter, culture, scenic valleys",
+        note: "Carry original Passport or Voter ID (Aadhaar is NOT accepted). This itinerary uses the 8th day (Jan 23) for comfortable road return.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Bagdogra & Phuentsholing Border",
+            travel: "Flight ~5–6 hrs | Drive 4 hrs",
+            steps: [
+              { time: "05:30 AM", text: "Fly AMD → Bagdogra." },
+              { time: "12:30 PM", text: "Cab pickup at Bagdogra & drive through Dooars tea gardens." },
+              { time: "04:30 PM", text: "Cross Bhutan Gate into Phuentsholing, check in & dinner." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Immigration Permits & Drive to Thimphu",
+            travel: "Drive 5 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & visit Immigration Office for permits." },
+              { time: "10:30 AM", text: "Meet Bhutanese guide/driver & start uphill drive to Thimphu." },
+              { time: "01:30 PM", text: "Lunch stop at Gedu/Chukha." },
+              { time: "04:30 PM", text: "Arrive in Thimphu, check in & walk Norzin Lam street." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Thimphu Sightseeing",
+            travel: "Local cab ~1.5 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up & breakfast." },
+              { time: "09:30 AM", text: "Cab to Buddha Dordenma statue overlooking Thimphu valley." },
+              { time: "11:30 AM", text: "Visit Motithang Takin Preserve & Simply Bhutan museum." },
+              { time: "02:30 PM", text: "Explore Centenary Farmers Market & Craft Bazaar." },
+              { time: "05:00 PM", text: "Visit Tashichho Dzong illuminated at dusk." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Thimphu to Punakha via Dochula Pass",
+            travel: "Drive 3 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:00 AM", text: "Drive to Dochula Pass (108 Stupas & snowy Himalayan views)." },
+              { time: "12:30 PM", text: "Arrive in warmer Punakha valley & riverside lunch." },
+              { time: "02:30 PM", text: "Visit Punakha Dzong & walk across Bhutan's longest Suspension Bridge." },
+              { time: "06:00 PM", text: "Check in to Punakha resort & group dinner." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Punakha to Paro",
+            travel: "Drive 4 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & optional river rafting on Mo Chhu." },
+              { time: "11:00 AM", text: "Cab departure for Paro." },
+              { time: "03:30 PM", text: "Arrive in Paro, visit National Museum & Paro Dzong." },
+              { time: "06:30 PM", text: "Cafe hopping in Paro town; early sleep for tomorrow's hike." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Tiger's Nest Monastery Hike & Hot Stone Bath",
+            travel: "Cab 30 min | Trek 5–6 hrs round-trip",
+            steps: [
+              { time: "06:30 AM", text: "Early wake-up & hearty breakfast." },
+              { time: "07:30 AM", text: "Cab to Taktsang base; start trek to Tiger's Nest Monastery." },
+              { time: "10:30 AM", text: "Reach cliffside monastery, explore & take iconic group photos." },
+              { time: "01:00 PM", text: "Descend to cafeteria for buffet lunch; reach base by 03:00 PM." },
+              { time: "05:30 PM", text: "Traditional Bhutanese Hot Stone Bath to relax sore muscles." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Paro to Phuentsholing",
+            travel: "Drive 4.5 hrs",
+            steps: [
+              { time: "08:30 AM", text: "Relaxed breakfast & checkout." },
+              { time: "10:00 AM", text: "Cab drive back down to Phuentsholing." },
+              { time: "03:00 PM", text: "Check in, rest & farewell dinner." }
+            ]
+          },
+          {
+            day: "Day 8 • Jan 23",
+            title: "Phuentsholing to Bagdogra & Fly to Ahmedabad",
+            travel: "Drive 4 hrs | Flight ~5–6 hrs",
+            steps: [
+              { time: "07:00 AM", text: "Wake up, breakfast & border exit formalities." },
+              { time: "08:30 AM", text: "Cab drive to Bagdogra Airport." },
+              { time: "01:30 PM", text: "Board return flight IXB → AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "srilanka",
+        name: "Sri Lanka",
+        subtitle: "Kandy, Ella & South Coast Beaches",
+        type: "international",
+        climate: "warm",
+        temp: "30°C Coast / 20°C Hills",
+        budget: "₹50,000 – ₹65,000",
+        flight: "~3.5 hrs direct (FitsAir) or 1 stop",
+        visa: "Free 30-day ETA (apply online)",
+        bestFor: "Beaches, scenic train, wildlife, warm weather",
+        note: "January is peak dry season for the South Coast (Mirissa, Weligama, Galle). Direct flights from AMD to Colombo operate on FitsAir.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Colombo & Drive to Kandy",
+            travel: "Flight ~3.5–5.5 hrs | Drive 3.5 hrs",
+            steps: [
+              { time: "06:00 AM", text: "Depart for AMD Airport; fly to Colombo (CMB)." },
+              { time: "01:00 PM", text: "Land in Colombo, grab SIM cards & meet private van driver." },
+              { time: "02:00 PM", text: "Drive to Kandy (optional stop at Pinnawala)." },
+              { time: "06:00 PM", text: "Check in to Kandy hotel & evening Kandyan cultural show." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Kandy to Nuwara Eliya (Little England)",
+            travel: "Drive 2.5 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & visit Temple of the Sacred Tooth Relic." },
+              { time: "10:30 AM", text: "Cab drive to Nuwara Eliya through lush tea estates." },
+              { time: "01:30 PM", text: "Stop at a Ceylon Tea Factory for tasting & lunch." },
+              { time: "04:00 PM", text: "Check in & evening boating/walk at Gregory Lake." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Scenic Train to Ella & Nine Arch Bridge",
+            travel: "Train 3 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & cab drop to Nanu Oya railway station." },
+              { time: "09:30 AM", text: "Board iconic blue hill-country train to Ella (driver carries luggage)." },
+              { time: "12:30 PM", text: "Arrive in Ella, check in & lunch at a chill hillside cafe." },
+              { time: "03:30 PM", text: "Walk to Nine Arch Bridge & Little Adam's Peak for sunset." },
+              { time: "08:00 PM", text: "Dinner & live music on Ella Main Street." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Yala Leopard Safari & Drive to Mirissa",
+            travel: "Drive 2.5 hrs + 2.5 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:00 AM", text: "Drive Ella → Yala National Park." },
+              { time: "02:00 PM", text: "Afternoon 4x4 Jeep Safari in Yala (leopards, elephants, peacocks)." },
+              { time: "06:00 PM", text: "Drive Yala → Mirissa beach town, check in & late dinner." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Mirissa & Weligama Beach Day",
+            travel: "Local tuk-tuks ~20 min",
+            steps: [
+              { time: "06:30 AM", text: "Optional Blue Whale Watching boat tour (or sleep in!)." },
+              { time: "11:00 AM", text: "Beginner surfing session at Weligama Bay." },
+              { time: "02:00 PM", text: "Lunch & chill at Coconut Tree Hill." },
+              { time: "06:30 PM", text: "Beach club party & seafood/BBQ dinner on Mirissa Beach." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Galle Fort & Bentota Water Sports",
+            travel: "Drive 1 hr + 1.5 hrs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Drive to UNESCO Galle Dutch Fort; walk ramparts & boutiques." },
+              { time: "01:30 PM", text: "Drive to Bentota; afternoon jet skiing & Madu River boat safari." },
+              { time: "06:30 PM", text: "Check in to Bentota beach resort & pool time." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Colombo City & Fly Home to Ahmedabad",
+            travel: "Drive 2 hrs | Flight ~3.5–5.5 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:30 AM", text: "Drive Bentota → Colombo; visit Lotus Tower & One Galle Face Mall." },
+              { time: "03:00 PM", text: "Airport drop for return flight CMB → AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "azerbaijan",
+        name: "Azerbaijan",
+        subtitle: "Baku, Shahdag & Gabala",
+        type: "international",
+        climate: "cold",
+        temp: "7°C / 1°C (Sub-zero Mtns)",
+        budget: "₹75,000 – ₹95,000",
+        flight: "~7–8 hrs (1 stop)",
+        visa: "Easy ASAN e-visa (~₹2,200)",
+        bestFor: "European vibes, nightlife, snow resorts",
+        note: "Baku is windy in January—pack a good windproof jacket. Bolt app works great for cheap cabs inside Baku.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Baku & Nizami Street",
+            travel: "Flight ~7–8 hrs | Airport cab 30 min",
+            steps: [
+              { time: "06:00 AM", text: "Fly AMD → Baku (via Sharjah/Abu Dhabi/Delhi)." },
+              { time: "04:00 PM", text: "Land in Baku, private transfer & hotel check-in." },
+              { time: "06:30 PM", text: "Evening walk at Nizami Street & Fountain Square." },
+              { time: "09:00 PM", text: "Azerbaijani dinner & lively pub/lounge night." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Baku Old City & Flame Towers",
+            travel: "Local walking + Bolt cabs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & hotel breakfast." },
+              { time: "10:00 AM", text: "Guided walk through Icherisheher (Old City), Maiden Tower & Shirvanshah Palace." },
+              { time: "01:30 PM", text: "Lunch near Baku Boulevard (Caspian Sea promenade)." },
+              { time: "03:30 PM", text: "Visit futuristic Heydar Aliyev Center for photos." },
+              { time: "06:00 PM", text: "Ride funicular to Highland Park for illuminated Flame Towers view." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Gobustan Mud Volcanoes & Fire Temple",
+            travel: "Drive 1 hr each way",
+            steps: [
+              { time: "08:00 AM", text: "Wake up & breakfast." },
+              { time: "09:30 AM", text: "Cab pickup to Gobustan Rock Art Museum & Mud Volcanoes (Lada ride)." },
+              { time: "01:30 PM", text: "Return toward city for lunch." },
+              { time: "03:30 PM", text: "Visit Ateshgah Fire Temple & Yanar Dag (Burning Mountain)." },
+              { time: "07:00 PM", text: "Return to Baku; evening at Deniz Mall / Little Venice." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Baku to Shahdag Mountain Snow Resort",
+            travel: "Drive 3 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & pack winter gear." },
+              { time: "08:30 AM", text: "Private van pickup for Shahdag Mountain Resort." },
+              { time: "11:30 AM", text: "Check in & hit the snow: Shahdag Coaster, skiing, snow tubing & cable car." },
+              { time: "06:00 PM", text: "Warm up in resort spa/heated pool & group dinner." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Shahdag Morning & Transfer to Gabala (or Baku)",
+            travel: "Drive 3–4 hrs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up, snowy mountain breakfast & extra skiing/ziplining." },
+              { time: "01:00 PM", text: "Drive to Gabala (or back to Baku for a relaxed evening)." },
+              { time: "05:00 PM", text: "Evening chill at Nohur Lake & check in." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Tufandag Cable Car & Return to Baku",
+            travel: "Drive 3.5 hrs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "10:00 AM", text: "Ride Tufandag Mountain Resort cable cars & snow swing." },
+              { time: "02:00 PM", text: "Drive back to Baku." },
+              { time: "06:00 PM", text: "Last-night shopping at Genclik Mall & Baku nightlife." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Fly Home to Ahmedabad",
+            travel: "Flight ~7–8 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Cab drop to Heydar Aliyev International Airport for flight to AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "georgia",
+        name: "Georgia",
+        subtitle: "Tbilisi, Gudauri & Kakheti",
+        type: "international",
+        climate: "cold",
+        temp: "7°C / -1°C (-11°C Gudauri)",
+        budget: "₹85,000 – ₹1,05,000",
+        flight: "~8–9 hrs (1 stop)",
+        visa: "e-Visa Required (strong docs)",
+        bestFor: "Skiing, Caucasus mountains, cafes",
+        note: "Carry printed hotel bookings, return flights, travel insurance & bank statements for smooth immigration. Do not combine with Kazakhstan in 7 days.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Tbilisi",
+            travel: "Flight ~8–9 hrs | Airport cab 30 min",
+            steps: [
+              { time: "05:00 AM", text: "Fly AMD → Tbilisi (via Sharjah/Dubai/Doha)." },
+              { time: "04:00 PM", text: "Land in Tbilisi, airport transfer & hotel check-in." },
+              { time: "07:00 PM", text: "Walk Rustaveli Avenue & dinner with Khachapuri and Khinkali." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Old Tbilisi & Sulfur Baths",
+            travel: "Walking + short cabs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "10:00 AM", text: "Explore Old Tbilisi, Bridge of Peace & cable car to Narikala Fortress." },
+              { time: "01:30 PM", text: "Lunch in Sololaki cafe district." },
+              { time: "04:00 PM", text: "Book a private traditional Sulfur Bath session in Abanotubani." },
+              { time: "08:00 PM", text: "Hang out at Fabrika (trendy courtyard with bars & music)." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Tbilisi to Gudauri Ski Resort",
+            travel: "Drive 2.5 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:30 AM", text: "4x4 van pickup along Georgian Military Highway." },
+              { time: "10:00 AM", text: "Photo stops at Zhinvali Reservoir & Ananuri Fortress." },
+              { time: "12:00 PM", text: "Reach Gudauri Ski Resort, check in & rent ski gear." },
+              { time: "02:00 PM", text: "Skiing, snowboarding, or tandem paragliding over snow peaks." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Kazbegi (Gergeti Trinity Church) & Return to Tbilisi",
+            travel: "Drive 1 hr + 2.5 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up & snowy mountain breakfast." },
+              { time: "09:30 AM", text: "Drive to Stepantsminda (Kazbegi) via Russia-Georgia Friendship Monument." },
+              { time: "11:30 AM", text: "4x4 ascent to iconic Gergeti Trinity Church (weather permitting)." },
+              { time: "02:30 PM", text: "Lunch at Rooms Hotel Kazbegi with Mount Kazbek views." },
+              { time: "04:00 PM", text: "Drive back to Tbilisi & check in." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Kakheti Wine Region & Sighnaghi",
+            travel: "Drive 2 hrs each way",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "09:30 AM", text: "Cab pickup for Kakheti valley." },
+              { time: "11:30 AM", text: "Visit Bodbe Monastery & Sighnaghi ('City of Love')." },
+              { time: "02:00 PM", text: "Traditional Georgian vineyard lunch & tasting." },
+              { time: "06:30 PM", text: "Return to Tbilisi for evening chill." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Mtskheta & Uplistsikhe Cave Town",
+            travel: "Drive 1.5 hrs each way",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "09:30 AM", text: "Drive to Jvari Monastery & ancient capital Mtskheta." },
+              { time: "01:00 PM", text: "Drive to Uplistsikhe ancient rock-hewn cave town." },
+              { time: "05:30 PM", text: "Return to Tbilisi; souvenir shopping & farewell dinner." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Fly Home to Ahmedabad",
+            travel: "Flight ~8–9 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Airport transfer for return flight Tbilisi → AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "kazakhstan",
+        name: "Kazakhstan",
+        subtitle: "Almaty, Shymbulak & Charyn Canyon",
+        type: "international",
+        climate: "cold",
+        temp: "-5°C Day / -15°C Night",
+        budget: "₹75,000 – ₹95,000",
+        flight: "~7–8 hrs (1 stop)",
+        visa: "Visa-Free (up to 14 days)",
+        bestFor: "Deep snow, skiing, frozen lakes",
+        note: "Proper winter gear (down jacket, gloves, snow boots) is mandatory. Yandex Go app works great for cheap cabs in Almaty.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Almaty",
+            travel: "Flight ~7–8 hrs | Airport cab 30 min",
+            steps: [
+              { time: "06:00 AM", text: "Fly AMD → Almaty (via Delhi/Sharjah)." },
+              { time: "04:00 PM", text: "Land in snowy Almaty, cab to hotel & check in." },
+              { time: "07:00 PM", text: "Evening walk on Panfilov pedestrian street & warm dinner." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Almaty City & Kok-Tobe Cable Car",
+            travel: "Local Yandex cabs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "10:00 AM", text: "Visit Panfilov Park & colorful Zenkov Cathedral." },
+              { time: "12:30 PM", text: "Explore Green Bazaar (try local chocolates & dry fruits)." },
+              { time: "03:30 PM", text: "Take Kok-Tobe Cable Car for sunset views over snowy Almaty." },
+              { time: "07:30 PM", text: "Dinner & nightlife in central Almaty." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Medeu Ice Rink & Shymbulak Ski Resort",
+            travel: "Drive 45 min each way",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, heavy winter layering & breakfast." },
+              { time: "09:30 AM", text: "Cab to Medeu High-Altitude Ice Skating Rink." },
+              { time: "11:00 AM", text: "Take 3-tier gondola up to Shymbulak Ski Resort (3,200m)." },
+              { time: "01:00 PM", text: "Skiing, snow tubing, hot chocolate & mountain cafe lunch." },
+              { time: "05:30 PM", text: "Return to Almaty & relax." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Charyn Canyon Day Trip",
+            travel: "Drive 3.5 hrs each way",
+            steps: [
+              { time: "07:00 AM", text: "Early wake-up & breakfast." },
+              { time: "08:00 AM", text: "Private van pickup for Charyn Canyon ('Grand Canyon of Central Asia')." },
+              { time: "11:30 AM", text: "Walk through snow-dusted Valley of Castles to Charyn River." },
+              { time: "03:30 PM", text: "Begin return drive to Almaty; reach by 07:00 PM." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Frozen Kolsai Lake Day Trip",
+            travel: "Drive 4.5 hrs each way",
+            steps: [
+              { time: "06:30 AM", text: "Early wake-up & packed breakfast." },
+              { time: "07:00 AM", text: "Drive to Kolsai Lakes National Park." },
+              { time: "11:30 AM", text: "Walk around frozen alpine Kolsai Lake & snowy pine trails." },
+              { time: "03:30 PM", text: "Drive back to Almaty; reach hotel by 08:00 PM." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Oi-Qaragai Mountain Resort & Arbat Street",
+            travel: "Drive 1 hr each way",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "10:00 AM", text: "Drive to Oi-Qaragai Resort for mega-zipline, horse riding & snow fun." },
+              { time: "04:00 PM", text: "Return to Almaty; shopping at Dostyk Plaza & Arbat Street." },
+              { time: "08:30 PM", text: "Farewell cousins' dinner." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Fly Home to Ahmedabad",
+            travel: "Flight ~7–8 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Cab drop to Almaty Airport for flight to AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "vietnam",
+        name: "Vietnam (Bonus 1)",
+        subtitle: "Da Nang, Hoi An & Phu Quoc Island",
+        type: "international",
+        climate: "warm",
+        temp: "26°C Day / 18°C Night",
+        budget: "₹55,000 – ₹70,000",
+        flight: "~5.5 hrs direct to Da Nang (VietJet)",
+        visa: "Easy e-Visa (~₹2,200)",
+        bestFor: "Beaches, theme parks, nightlife, value",
+        note: "Direct flights from AMD to Da Nang (VietJet) save huge travel time. Grab app works everywhere for super cheap cabs.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Da Nang",
+            travel: "Direct Flight ~5.5 hrs | Cab 15 min",
+            steps: [
+              { time: "07:00 AM", text: "Fly AMD → Da Nang." },
+              { time: "04:00 PM", text: "Land in Da Nang, Grab cab to beach hotel & check in." },
+              { time: "06:30 PM", text: "Walk My Khe Beach & watch Dragon Bridge fire/water show (weekends)." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Ba Na Hills & Golden Bridge",
+            travel: "Cab 45 min each way",
+            steps: [
+              { time: "07:30 AM", text: "Wake up & breakfast." },
+              { time: "08:30 AM", text: "Cab pickup to Sun World Ba Na Hills." },
+              { time: "09:30 AM", text: "Ride record-breaking cable car to Golden Hands Bridge & French Village." },
+              { time: "01:00 PM", text: "Buffet lunch + Fantasy Park indoor roller coasters & Alpine Coaster." },
+              { time: "05:30 PM", text: "Return to Da Nang; seafood/Indian dinner & rooftop bar." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Marble Mountains & Hoi An Lantern Town",
+            travel: "Cab 45 min each way",
+            steps: [
+              { time: "09:00 AM", text: "Relaxed breakfast & cab to Marble Mountains caves." },
+              { time: "12:30 PM", text: "Coconut Forest Basket Boat ride (spinning boats!)." },
+              { time: "03:00 PM", text: "Explore UNESCO Hoi An Ancient Town cafes & tailor shops." },
+              { time: "06:30 PM", text: "Lantern boat ride on Thu Bon River & Night Market dinner." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Fly Da Nang to Phu Quoc Island",
+            travel: "Flight 1.5 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Fly Da Nang → Phu Quoc Island." },
+              { time: "01:00 PM", text: "Check in to beach resort & pool chill." },
+              { time: "05:00 PM", text: "Visit Sunset Town, Kiss Bridge & Kiss of the Sea night show." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Hon Thom Cable Car & 3-Island Snorkeling",
+            travel: "Speedboat + Cable Car",
+            steps: [
+              { time: "08:00 AM", text: "Wake up & breakfast." },
+              { time: "09:00 AM", text: "Hotel pickup for speedboat island-hopping & coral snorkeling." },
+              { time: "01:30 PM", text: "Buffet lunch at Hon Thom Island + Aquatopia Water Park." },
+              { time: "04:30 PM", text: "Return via world's longest sea-crossing cable car." },
+              { time: "08:00 PM", text: "Beach club dinner at Phu Quoc Night Market." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "VinWonders Theme Park & Grand World",
+            travel: "Cab 45 min each way",
+            steps: [
+              { time: "08:30 AM", text: "Wake up & breakfast." },
+              { time: "09:30 AM", text: "Cab to Vinpearl Safari & VinWonders Theme Park + Sea Shell Aquarium." },
+              { time: "06:00 PM", text: "Walk Venice-style canals of Grand World & watch Colors of Venice show." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Fly Home to Ahmedabad",
+            travel: "Flight ~7–8 hrs (1 stop)",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & beach walk." },
+              { time: "11:00 AM", text: "Airport drop for return flight Phu Quoc → AMD (via HCMC/Hanoi)." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "andaman",
+        name: "Andaman Islands (Bonus 2)",
+        subtitle: "Port Blair, Havelock & Neil Island",
+        type: "domestic",
+        climate: "warm",
+        temp: "29°C Day / 22°C Night",
+        budget: "₹42,000 – ₹55,000",
+        flight: "~6 hrs (1 stop)",
+        visa: "Domestic (No Visa)",
+        bestFor: "Scuba diving, turquoise beaches, zero visa hassle",
+        note: "Book Makruzz / Nautika private ferries in advance. January has the calmest seas and clearest scuba visibility.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Port Blair",
+            travel: "Flight ~6 hrs",
+            steps: [
+              { time: "05:30 AM", text: "Fly AMD → Port Blair (via Bengaluru/Chennai/Kolkata)." },
+              { time: "01:30 PM", text: "Land, cab to hotel & lunch." },
+              { time: "04:00 PM", text: "Visit Cellular Jail & watch the Light & Sound Show." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Ferry to Havelock Island & Radhanagar Beach",
+            travel: "Ferry 1.5 hrs",
+            steps: [
+              { time: "07:00 AM", text: "Wake up, breakfast & cab to Haddo Jetty." },
+              { time: "08:30 AM", text: "Board Makruzz high-speed ferry to Havelock Island." },
+              { time: "10:30 AM", text: "Check in to beach resort & rent scooters." },
+              { time: "03:30 PM", text: "Swim & sunset at world-famous Radhanagar Beach." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Scuba Diving & Elephant Beach Water Sports",
+            travel: "Boat 20 min each way",
+            steps: [
+              { time: "06:30 AM", text: "Early wake-up for beginner Scuba Diving session at Nemo Reef." },
+              { time: "10:30 AM", text: "Breakfast & quick rest at resort." },
+              { time: "12:30 PM", text: "Speedboat to Elephant Beach for snorkeling, jet ski & sea walk." },
+              { time: "07:00 PM", text: "Beachfront cafe hopping & seafood/veg BBQ dinner." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Kalapathar Sunrise & Mangrove Kayaking",
+            travel: "Scooters ~30 min",
+            steps: [
+              { time: "05:30 AM", text: "Scooter ride to Kalapathar Beach for turquoise sunrise." },
+              { time: "09:00 AM", text: "Breakfast & chill by the beach." },
+              { time: "04:00 PM", text: "Guided Mangrove Kayaking tour (or night bioluminescence kayaking)." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Ferry to Neil Island",
+            travel: "Ferry 1 hr",
+            steps: [
+              { time: "08:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:30 AM", text: "Ferry Havelock → Neil Island." },
+              { time: "01:00 PM", text: "Check in & visit Natural Coral Bridge during low tide." },
+              { time: "04:30 PM", text: "Sunset at Laxmanpur Beach." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Bharatpur Beach & Return to Port Blair",
+            travel: "Ferry 1.5 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Morning glass-bottom boat / swim at Bharatpur Beach." },
+              { time: "12:00 PM", text: "Ferry Neil Island → Port Blair." },
+              { time: "03:30 PM", text: "Visit Chidiya Tapu sunset point or souvenir shopping at Sagarika." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Fly Home to Ahmedabad",
+            travel: "Flight ~6 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Cab to Veer Savarkar Airport for flight to AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "egypt",
+        name: "Egypt (Bonus 3)",
+        subtitle: "Cairo, Giza & Red Sea (Hurghada)",
+        type: "international",
+        climate: "warm",
+        temp: "19°C Cairo / 22°C Red Sea",
+        budget: "₹80,000 – ₹1,00,000",
+        flight: "~8–10 hrs (1 stop)",
+        visa: "e-Visa ($30 / ~₹2,600)",
+        bestFor: "Pyramids, Red Sea coral reefs, desert safaris",
+        note: "Apply for Egypt's official e-visa at least 7 days prior. January is peak comfortable sightseeing weather.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Cairo & Nile Cruise",
+            travel: "Flight ~8–10 hrs | Cab 45 min",
+            steps: [
+              { time: "05:00 AM", text: "Fly AMD → Cairo (via Sharjah/Abu Dhabi/Dubai)." },
+              { time: "04:00 PM", text: "Land in Cairo, private transfer & hotel check-in." },
+              { time: "07:30 PM", text: "Nile River Dinner Cruise with Tanoura & live music." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Great Pyramids of Giza & Grand Egyptian Museum",
+            travel: "Cab 45 min each way",
+            steps: [
+              { time: "07:30 AM", text: "Wake up & breakfast." },
+              { time: "08:30 AM", text: "Cab pickup to Giza Plateau: Great Pyramids & Sphinx." },
+              { time: "11:30 AM", text: "Desert ATV quad bike or camel ride with Pyramid backdrop." },
+              { time: "02:00 PM", text: "Lunch with Pyramid views, then explore Grand Egyptian Museum." },
+              { time: "07:00 PM", text: "Return to Cairo & dinner." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Old Cairo, Khan el-Khalili & Fly to Hurghada",
+            travel: "Flight 1 hr",
+            steps: [
+              { time: "08:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Visit Citadel of Saladin & Mosque of Muhammad Ali." },
+              { time: "01:30 PM", text: "Walk & shop at historic Khan el-Khalili Bazaar." },
+              { time: "06:00 PM", text: "Domestic flight Cairo → Hurghada (Red Sea); check in to beach resort." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Red Sea Coral Reef & Orange Bay Boat Trip",
+            travel: "Yacht 45 min each way",
+            steps: [
+              { time: "08:00 AM", text: "Wake up & resort breakfast." },
+              { time: "09:00 AM", text: "Board private/group yacht to Giftun Island / Orange Bay." },
+              { time: "10:30 AM", text: "Snorkeling over vibrant Red Sea coral reefs & crystal lagoons." },
+              { time: "01:30 PM", text: "Onboard lunch, banana boat & beach chill." },
+              { time: "05:00 PM", text: "Return to resort; Hurghada Marina dinner." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Hurghada Desert Safari & Stargazing",
+            travel: "4x4 30 min out of town",
+            steps: [
+              { time: "09:30 AM", text: "Relaxed resort morning & pool time." },
+              { time: "01:30 PM", text: "4x4 pickup for Sahara Desert Safari." },
+              { time: "02:30 PM", text: "Quad biking, spider dune buggies & Bedouin village tea." },
+              { time: "06:30 PM", text: "BBQ dinner & telescope stargazing in the desert." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Optional Luxor Day Trip OR Scuba & Chill",
+            travel: "Optional 4 hrs each way",
+            steps: [
+              { time: "05:30 AM", text: "Option A: Full-day van trip to Luxor (Valley of the Kings & Karnak Temple)." },
+              { time: "09:30 AM", text: "Option B: Scuba diving, parasailing & beach resort party in Hurghada." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Hurghada to Cairo & Fly to Ahmedabad",
+            travel: "Flight 1 hr + ~8–10 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "10:00 AM", text: "Fly Hurghada → Cairo → Connect to AMD flight." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "oman",
+        name: "Oman (Bonus 4)",
+        subtitle: "Muscat, Wadi Shab, Wahiba Sands & Nizwa",
+        type: "international",
+        climate: "warm",
+        temp: "24°C Day / 17°C Night",
+        budget: "₹65,000 – ₹80,000",
+        flight: "~5–6 hrs (1 stop)",
+        visa: "e-Visa Required",
+        bestFor: "Road trips, desert glamping, turquoise wadis",
+        note: "Renting a self-drive 4x4 SUV (Indian DL works with IDP) or hiring a private van makes Oman one of the best road trips for cousins.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Muscat",
+            travel: "Flight ~5–6 hrs | Cab 25 min",
+            steps: [
+              { time: "07:00 AM", text: "Fly AMD → Muscat (via Mumbai/Sharjah/Abu Dhabi)." },
+              { time: "03:00 PM", text: "Land in Muscat, pick up 4x4/van & hotel check-in." },
+              { time: "05:30 PM", text: "Sunset walk at Muttrah Corniche & explore Muttrah Souq." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Muscat Grand Mosque & Daymaniyat Islands",
+            travel: "Boat 45 min each way",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & visit Sultan Qaboos Grand Mosque." },
+              { time: "11:00 AM", text: "Drive to Al Mouj Marina; board boat to Daymaniyat Islands." },
+              { time: "12:30 PM", text: "Snorkel with sea turtles & tropical fish in crystal-clear water." },
+              { time: "06:00 PM", text: "Return to Muscat; dinner at Al Mouj waterfront." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Bimmah Sinkhole, Wadi Shab & Sur",
+            travel: "Drive 2.5 hrs total",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:30 AM", text: "Coastal drive to Bimmah Sinkhole for a quick dip." },
+              { time: "11:00 AM", text: "Reach Wadi Shab: 45-min canyon hike + swim into hidden waterfall cave." },
+              { time: "04:00 PM", text: "Drive to coastal town of Sur, check in & seaside dinner." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Sur to Wahiba Sands Desert Glamping",
+            travel: "Drive 2.5 hrs",
+            steps: [
+              { time: "09:00 AM", text: "Wake up, breakfast & visit Sur Dhow Factory." },
+              { time: "11:30 AM", text: "Drive to Bidiyah (desert edge) & deflate tires for Wahiba Sands." },
+              { time: "03:00 PM", text: "Check in to luxury desert camp; dune bashing & quad biking." },
+              { time: "06:00 PM", text: "Sunset on golden dunes, Omani BBQ dinner & bonfire stargazing." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Wadi Bani Khalid to Nizwa",
+            travel: "Drive 3.5 hrs total",
+            steps: [
+              { time: "08:00 AM", text: "Sunrise over dunes, desert breakfast & checkout." },
+              { time: "10:00 AM", text: "Drive to Wadi Bani Khalid to swim in emerald oasis pools." },
+              { time: "02:30 PM", text: "Drive to historic Nizwa, check in & explore Nizwa night souq." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Nizwa Fort, Jebel Akhdar & Return to Muscat",
+            travel: "Drive 3.5 hrs total",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & tour Nizwa Fort." },
+              { time: "10:30 AM", text: "4x4 drive up to Jebel Akhdar / Jebel Shams ('Grand Canyon of Arabia')." },
+              { time: "03:30 PM", text: "Drive back to Muscat; farewell dinner." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Fly Home to Ahmedabad",
+            travel: "Flight ~5–6 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & quick mall stop." },
+              { time: "11:00 AM", text: "Airport drop for return flight Muscat → AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "kerala",
+        name: "Kerala (Domestic)",
+        subtitle: "Kochi, Munnar, Thekkady, Alleppey & Varkala",
+        type: "domestic",
+        climate: "warm",
+        temp: "32°C Coast / 10–25°C Munnar",
+        budget: "₹28,000 – ₹38,000",
+        flight: "~2.5 hrs direct to Kochi (IndiGo)",
+        visa: "Domestic (No Visa)",
+        bestFor: "Tea hills, private houseboat, cliff cafes, surfing",
+        note: "Direct 2.5-hour flight from Ahmedabad to Kochi! Splitting a Tempo Traveller and a private multi-bedroom houseboat keeps costs super low.",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Kochi & Fort Kochi",
+            travel: "Direct Flight ~2.5 hrs | Cab 1 hr",
+            steps: [
+              { time: "08:00 AM", text: "Board direct flight AMD → Kochi (COK)." },
+              { time: "12:00 PM", text: "Land, Tempo Traveller pickup & drive to Fort Kochi." },
+              { time: "03:30 PM", text: "Explore Jew Town, Chinese Fishing Nets & aesthetic cafes." },
+              { time: "07:30 PM", text: "Dinner by the harbour." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Kochi to Munnar Tea Hills",
+            travel: "Drive 4 hrs",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:30 AM", text: "Drive uphill to Munnar; stop at Cheeyappara & Valara Waterfalls." },
+              { time: "01:30 PM", text: "Check in to hilltop resort & lunch." },
+              { time: "04:00 PM", text: "Walk through misty tea plantations & evening bonfire." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Kolukkumalai Sunrise & Munnar Sightseeing",
+            travel: "4x4 Jeep + Local cab",
+            steps: [
+              { time: "04:30 AM", text: "Early wake-up for 4x4 Jeep Safari to Kolukkumalai (world's highest tea estate)." },
+              { time: "06:30 AM", text: "Epic cloud-bed sunrise & fresh mountain tea." },
+              { time: "10:00 AM", text: "Return for breakfast & quick nap." },
+              { time: "01:30 PM", text: "Visit Eravikulam National Park, Mattupetty Dam & Echo Point." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Munnar to Thekkady Wildlife",
+            travel: "Drive 3 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:30 AM", text: "Drive Munnar → Thekkady." },
+              { time: "01:30 PM", text: "Periyar Lake boat safari & spice plantation tour." },
+              { time: "06:00 PM", text: "Watch Kalaripayattu martial arts show & dinner." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Thekkady to Alleppey Private Houseboat",
+            travel: "Drive 4 hrs",
+            steps: [
+              { time: "07:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:00 AM", text: "Drive down to Alleppey backwaters." },
+              { time: "12:00 PM", text: "Board private cousins' houseboat; welcome coconut water & Kerala Sadhya lunch." },
+              { time: "04:30 PM", text: "Sunset cruise through palm-lined canals, music & overnight on water." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Alleppey to Varkala Cliff",
+            travel: "Drive 3 hrs",
+            steps: [
+              { time: "08:00 AM", text: "Breakfast on houseboat & checkout by 09:00 AM." },
+              { time: "09:30 AM", text: "Drive to Varkala (optional Munroe Island mangrove kayaking stop)." },
+              { time: "02:00 PM", text: "Check in near Varkala Cliff." },
+              { time: "05:00 PM", text: "Sunset over Arabian Sea & cliffside cafe hopping." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Varkala Surfing & Fly Home to Ahmedabad",
+            travel: "Drive 1.5 hrs to TRV | Flight",
+            steps: [
+              { time: "07:30 AM", text: "Morning beginner surfing lesson or beach swim." },
+              { time: "11:30 AM", text: "Checkout & cab to Trivandrum Airport (1.5 hrs) for flight to AMD." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "meghalaya",
+        name: "Meghalaya (Domestic)",
+        subtitle: "Shillong, Cherrapunji & Dawki",
+        type: "domestic",
+        climate: "cold",
+        temp: "15°C Day / 6°C Night",
+        budget: "₹30,000 – ₹40,000",
+        flight: "~5–6 hrs (to Guwahati)",
+        visa: "Domestic (No Visa)",
+        bestFor: "Glass-clear rivers, root bridges, caving, road trips",
+        note: "January is the best month for Dawki's Umngot River—it turns completely transparent like glass!",
+        days: [
+          {
+            day: "Day 1 • Jan 16",
+            title: "Ahmedabad to Guwahati & Drive to Shillong",
+            travel: "Flight ~5–6 hrs | Drive 3 hrs",
+            steps: [
+              { time: "06:00 AM", text: "Fly AMD → Guwahati (GAU)." },
+              { time: "01:00 PM", text: "Meet Tempo Traveller driver & drive to Shillong." },
+              { time: "03:30 PM", text: "Photo stop at Umiam Lake viewpoint." },
+              { time: "05:30 PM", text: "Check in & evening walk/cafes at Police Bazaar." }
+            ]
+          },
+          {
+            day: "Day 2 • Jan 17",
+            title: "Laitlum Canyons & Krang Suri Falls",
+            travel: "Drive 3.5 hrs total",
+            steps: [
+              { time: "07:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:30 AM", text: "Drive to Laitlum Grand Canyon for epic valley views." },
+              { time: "11:30 AM", text: "Drive to turquoise Krang Suri Falls; swim with life jackets." },
+              { time: "04:30 PM", text: "Drive to Shnongpdeng (Dawki) & check in to riverside camps." }
+            ]
+          },
+          {
+            day: "Day 3 • Jan 18",
+            title: "Dawki Crystal-Clear River Adventure",
+            travel: "Local riverside",
+            steps: [
+              { time: "08:00 AM", text: "Wake up by the river & breakfast." },
+              { time: "09:30 AM", text: "Boating on glass-clear Umngot River (boats look like they float in air)." },
+              { time: "12:00 PM", text: "Cliff jumping, kayaking, snorkeling & ziplining." },
+              { time: "07:00 PM", text: "Bonfire, music & BBQ night by the river." }
+            ]
+          },
+          {
+            day: "Day 4 • Jan 19",
+            title: "Mawlynnong Village to Cherrapunji",
+            travel: "Drive 3.5 hrs total",
+            steps: [
+              { time: "08:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:30 AM", text: "Visit Mawlynnong (Asia's cleanest village) & Single Root Bridge." },
+              { time: "01:30 PM", text: "Drive to Cherrapunji (Sohra); check in to canyon-view stay." }
+            ]
+          },
+          {
+            day: "Day 5 • Jan 20",
+            title: "Double Decker Living Root Bridge Trek",
+            travel: "Cab 30 min | Trek 5–6 hrs",
+            steps: [
+              { time: "07:00 AM", text: "Early wake-up, energy breakfast & cab to Tyrna village." },
+              { time: "08:00 AM", text: "Descend 3,500 stone steps to Nongriat Double Decker Root Bridge." },
+              { time: "11:30 AM", text: "Continue to Blue Lagoon & Rainbow Falls for a dip." },
+              { time: "01:30 PM", text: "Climb back up to Tyrna (reach by 04:30 PM) & rest." }
+            ]
+          },
+          {
+            day: "Day 6 • Jan 21",
+            title: "Waterfalls, Caves & Return to Shillong",
+            travel: "Drive 2.5 hrs",
+            steps: [
+              { time: "08:30 AM", text: "Wake up, breakfast & checkout." },
+              { time: "09:30 AM", text: "Visit Wei Sawdong 3-tier waterfall, Nohkalikai Falls & Mawsmai Cave." },
+              { time: "03:00 PM", text: "Drive back to Shillong; live-music cafe night." }
+            ]
+          },
+          {
+            day: "Day 7 • Jan 22",
+            title: "Shillong to Guwahati & Fly to Ahmedabad",
+            travel: "Drive 3 hrs | Flight ~5–6 hrs",
+            steps: [
+              { time: "07:00 AM", text: "Wake up, breakfast & checkout." },
+              { time: "08:00 AM", text: "Cab drive to Guwahati Airport for return flight to AMD." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+    let currentFilter = "all";
+
+    const homeView = document.getElementById("home-view");
+    const detailView = document.getElementById("detail-view");
+    const grid = document.getElementById("destinations-grid");
+
+    function renderGrid() {
+      grid.innerHTML = "";
+      destinations.forEach((d, idx) => {
+        if (currentFilter === "international" && d.type !== "international") return;
+        if (currentFilter === "domestic" && d.type !== "domestic") return;
+        if (currentFilter === "cold" && d.climate !== "cold") return;
+        if (currentFilter === "warm" && d.climate !== "warm") return;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.onclick = () => openDestination(idx);
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <span class="card-num">Option #${idx + 1}</span>
+              <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
+            </div>
+            <h2>${d.name}</h2>
+            <p class="card-sub">${d.subtitle}</p>
+          </div>
+          <div>
+            <div class="meta-list">
+              <div class="meta-item"><span>Jan Temp</span><strong>${d.temp}</strong></div>
+              <div class="meta-item"><span>Est. Budget</span><strong>${d.budget}</strong></div>
+              <div class="meta-item"><span>From AMD</span><strong>${d.flight}</strong></div>
+              <div class="meta-item"><span>Visa / Entry</span><strong>${d.visa}</strong></div>
+            </div>
+            <div class="card-cta">View Day-Wise Plan →</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openDestination(index) {
+      currentIndex = index;
+      const d = destinations[currentIndex];
+      const prevIdx = (currentIndex - 1 + destinations.length) % destinations.length;
+      const nextIdx = (currentIndex + 1) % destinations.length;
+
+      homeView.style.display = "none";
+      detailView.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      document.getElementById("dest-counter").textContent = `${currentIndex + 1} / ${destinations.length}`;
+      document.getElementById("top-prev-btn").textContent = `← ${destinations[prevIdx].name.split(" (")[0]}`;
+      document.getElementById("top-next-btn").textContent = `${destinations[nextIdx].name.split(" (")[0]} →`;
+      document.getElementById("bot-prev-btn").textContent = `← Prev: ${destinations[prevIdx].name.split(" (")[0]}`;
+      document.getElementById("bot-next-btn").textContent = `Next: ${destinations[nextIdx].name.split(" (")[0]} →`;
+
+      document.getElementById("detail-hero").innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.4rem;">
+          <span class="card-num">Destination #${currentIndex + 1} of ${destinations.length}</span>
+          <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
+        </div>
+        <h2>${d.name}</h2>
+        <p class="hero-tagline">${d.subtitle} — ${d.bestFor}</p>
+        <div class="stats-grid">
+          <div class="stat-card"><small>January Temperature</small><strong>${d.temp}</strong></div>
+          <div class="stat-card"><small>Est. All-Inclusive Budget</small><strong>${d.budget}</strong></div>
+          <div class="stat-card"><small>Flight from Ahmedabad</small><strong>${d.flight}</strong></div>
+          <div class="stat-card"><small>Visa / Entry</small><strong>${d.visa}</strong></div>
+        </div>
+        ${d.note ? `<div class="note-box"><strong>Tip:</strong> ${d.note}</div>` : ""}
+      `;
+
+      const daysContainer = document.getElementById("days-container");
+      daysContainer.innerHTML = "";
+      d.days.forEach((dayObj, i) => {
+        const dayEl = document.createElement("div");
+        dayEl.className = "day-card" + (i === 0 ? " open" : "");
+        dayEl.innerHTML = `
+          <button class="day-trigger" onclick="this.parentElement.classList.toggle('open')">
+            <div class="day-left">
+              <span class="day-label">${dayObj.day}</span>
+              <span class="day-title">${dayObj.title}</span>
+              <span class="day-travel">Travel: ${dayObj.travel}</span>
+            </div>
+            <span class="chevron">▼</span>
+          </button>
+          <div class="day-body">
+            <ul class="timeline">
+              ${dayObj.steps.map(s => `
+                <li>
+                  <span class="time-tag">${s.time}</span>
+                  <span class="step-text">${s.text}</span>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+        `;
+        daysContainer.appendChild(dayEl);
+      });
+
+      document.getElementById("toggle-all-btn").textContent = "Expand All Days";
+    }
+
+    function navigate(step) {
+      const nextIndex = (currentIndex + step + destinations.length) % destinations.length;
+      openDestination(nextIndex);
+    }
+
+    function showHome() {
+      detailView.style.display = "none";
+      homeView.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleAllDays() {
+      const cards = document.querySelectorAll(".day-card");
+      const btn = document.getElementById("toggle-all-btn");
+      const allOpen = Array.from(cards).every(c => c.classList.contains("open"));
+      cards.forEach(c => c.classList.toggle("open", !allOpen));
+      btn.textContent = allOpen ? "Expand All Days" : "Collapse All Days";
+    }
+
+    document.getElementById("filter-bar").addEventListener("click", (e) => {
+      if (!e.target.classList.contains("filter-btn")) return;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      currentFilter = e.target.dataset.filter;
+      renderGrid();
+    });
+
+    renderGrid();
+  </script>
+</body>
+</html>
