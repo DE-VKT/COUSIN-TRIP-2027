@@ -3,242 +3,304 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cousins' Trip 2027 — From Ahmedabad (Jan 16–23)</title>
+  <title>Cousins' Escape 2027 — From Ahmedabad (Jan 16–23)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --surface-hover: #263349;
-      --border: #334155;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --green: #34d399;
-      --amber: #fbbf24;
-      --purple: #a78bfa;
+      --bg: #08090D;
+      --surface: #11131A;
+      --surface-elevated: #171A24;
+      --glass: rgba(23, 26, 36, 0.72);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(212, 175, 55, 0.35);
+      --text: #F5F5F7;
+      --muted: #8E92A4;
+      --gold: #E5C158;
+      --gold-soft: rgba(229, 193, 88, 0.14);
+      --teal: #2DD4BF;
+      --teal-soft: rgba(45, 212, 191, 0.14);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
+      font-family: "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 0%, rgba(229, 193, 88, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 10%, rgba(45, 212, 191, 0.06) 0%, transparent 45%);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
+    /* Luxury Editorial Header */
     header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 2rem 1.25rem 1.5rem;
+      padding: 4.5rem 1.5rem 2.75rem;
       text-align: center;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-soft);
+      border: 1px solid var(--border-gold);
+      padding: 0.38rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
     }
 
     header h1 {
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, #FFFFFF 30%, #E5C158 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
     }
 
     header p {
       color: var(--muted);
-      font-size: 0.98rem;
-      max-width: 680px;
+      font-size: 1.02rem;
+      font-weight: 400;
+      max-width: 580px;
       margin: 0 auto;
     }
 
     .container {
-      max-width: 1120px;
+      max-width: 1220px;
       margin: 0 auto;
-      padding: 1.5rem 1.25rem 4rem;
+      padding: 2.25rem 1.5rem 5.5rem;
     }
 
-    /* Filter Pills */
+    /* Glass Filter Pills */
     .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.65rem;
       justify-content: center;
-      margin-bottom: 1.75rem;
+      margin-bottom: 2.75rem;
     }
 
     .filter-btn {
       background: var(--surface);
       color: var(--muted);
       border: 1px solid var(--border);
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.35rem;
       border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .filter-btn:hover {
       color: var(--text);
-      border-color: var(--accent);
+      border-color: rgba(255, 255, 255, 0.25);
+      background: var(--surface-elevated);
     }
 
     .filter-btn.active {
-      background: var(--accent);
-      color: #0f172a;
-      border-color: var(--accent);
+      background: linear-gradient(135deg, #E5C158, #C9A035);
+      color: #08090D;
+      font-weight: 600;
+      border-color: transparent;
+      box-shadow: 0 8px 24px rgba(229, 193, 88, 0.25);
     }
 
-    /* Grid View */
+    /* Poster-Style Grid Cards */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.75rem;
     }
 
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      position: relative;
+      height: 430px;
+      border-radius: 24px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-      display: flex;
-      flex-direction: column;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.38s ease;
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+      transform: translateY(-8px);
+      border-color: var(--border-gold);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65), 0 0 30px rgba(229, 193, 88, 0.12);
     }
 
-    .card-img-wrap {
-      position: relative;
-      height: 175px;
-      width: 100%;
-      overflow: hidden;
-      background: linear-gradient(135deg, #1e3a8a, #0f172a);
-    }
-
-    .card-img-wrap img {
+    .card-bg {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
-      transition: transform 0.35s ease;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+      filter: brightness(0.85);
     }
 
-    .card:hover .card-img-wrap img {
-      transform: scale(1.06);
+    .card:hover .card-bg {
+      transform: scale(1.08);
+      filter: brightness(0.95);
     }
 
-    .card-img-overlay {
+    .card-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.1) 55%, rgba(15, 23, 42, 0.35) 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(8, 9, 13, 0.45) 0%,
+        rgba(8, 9, 13, 0.1) 35%,
+        rgba(8, 9, 13, 0.82) 70%,
+        rgba(8, 9, 13, 0.98) 100%
+      );
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 0.75rem 0.9rem;
+      padding: 1.35rem;
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
     }
 
     .card-num {
       font-size: 0.72rem;
-      font-weight: 700;
-      color: #f8fafc;
-      background: rgba(15, 23, 42, 0.72);
-      backdrop-filter: blur(4px);
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      color: #FFFFFF;
+      background: rgba(8, 9, 13, 0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
     }
 
     .badge {
       font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      backdrop-filter: blur(4px);
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .badge-intl { background: rgba(139, 92, 246, 0.85); color: #fff; }
-    .badge-dom { background: rgba(16, 185, 129, 0.85); color: #052e16; }
-
-    .card-body {
-      padding: 1.1rem 1.2rem 1.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1;
+    .badge-intl {
+      background: rgba(229, 193, 88, 0.2);
+      color: var(--gold);
+      border: 1px solid rgba(229, 193, 88, 0.4);
     }
 
-    .card h2 {
-      font-size: 1.22rem;
-      margin-bottom: 0.2rem;
+    .badge-dom {
+      background: rgba(45, 212, 191, 0.2);
+      color: var(--teal);
+      border: 1px solid rgba(45, 212, 191, 0.4);
+    }
+
+    .card-bottom h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2.05rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #FFFFFF;
+      margin-bottom: 0.3rem;
     }
 
     .card-sub {
-      color: var(--muted);
-      font-size: 0.84rem;
-      margin-bottom: 0.9rem;
+      color: rgba(245, 245, 247, 0.78);
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
     }
 
-    .meta-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.55rem;
-      border-top: 1px solid var(--border);
-      padding-top: 0.8rem;
+    .card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #E2E8F0;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.28rem 0.65rem;
+      border-radius: 8px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
       font-size: 0.82rem;
     }
 
-    .meta-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    .meta-item span {
+    .visa-text {
       color: var(--muted);
-      font-size: 0.75rem;
     }
 
-    .meta-item strong {
-      color: var(--text);
+    .explore-link {
+      color: var(--gold);
       font-weight: 600;
-      text-align: right;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: transform 0.25s ease;
     }
 
-    .card-cta {
-      margin-top: 0.95rem;
-      text-align: right;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
+    .card:hover .explore-link {
+      transform: translateX(4px);
     }
 
     /* Detail View */
     #detail-view {
       display: none;
+      animation: fadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .sticky-nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(10px);
+      z-index: 30;
+      background: rgba(8, 9, 13, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
-      padding: 0.85rem 1.25rem;
-      margin: -1.5rem -1.25rem 1.5rem;
+      padding: 0.9rem 1.5rem;
+      margin: -2.25rem -1.5rem 2rem;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -249,57 +311,61 @@
     .nav-group {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .btn {
-      background: var(--surface);
+      background: var(--surface-elevated);
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 0.5rem 0.95rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn:hover {
-      background: var(--surface-hover);
-      border-color: var(--accent);
+      border-color: rgba(255, 255, 255, 0.3);
+      background: #202432;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #0f172a;
-      border-color: var(--accent);
+      background: linear-gradient(135deg, #E5C158, #C9A035);
+      color: #08090D;
+      font-weight: 600;
+      border: none;
     }
 
     .btn-primary:hover {
-      background: #7dd3fc;
-      border-color: #7dd3fc;
+      filter: brightness(1.08);
+      transform: translateY(-1px);
     }
 
     .counter {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--muted);
       font-weight: 600;
+      letter-spacing: 0.05em;
       padding: 0 0.4rem;
     }
 
+    /* Cinematic Detail Hero */
     .hero-box {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 26px;
       overflow: hidden;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
     }
 
     .detail-banner {
       position: relative;
-      height: 260px;
+      height: 360px;
       width: 100%;
-      background: linear-gradient(135deg, #1e3a8a, #0f172a);
     }
 
     .detail-banner img {
@@ -312,77 +378,105 @@
     .detail-banner-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.35) 55%, rgba(15, 23, 42, 0.25) 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(8, 9, 13, 0.25) 0%,
+        rgba(8, 9, 13, 0.45) 50%,
+        var(--surface) 100%
+      );
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 1.5rem;
+      padding: 2rem 2.25rem 1.25rem;
     }
 
     .detail-banner-overlay h2 {
-      font-size: clamp(1.6rem, 3.5vw, 2.3rem);
-      margin-bottom: 0.2rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: #FFFFFF;
+      margin-bottom: 0.35rem;
     }
 
     .hero-tagline {
-      color: #cbd5e1;
-      font-size: 0.95rem;
+      color: rgba(245, 245, 247, 0.85);
+      font-size: 1.02rem;
+      font-weight: 400;
     }
 
     .hero-content {
-      padding: 1.35rem 1.5rem 1.5rem;
+      padding: 0.75rem 2.25rem 2rem;
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 0.85rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
     }
 
     .stat-card {
-      background: rgba(15, 23, 42, 0.55);
+      background: var(--surface-elevated);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.8rem 1rem;
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
     }
 
     .stat-card small {
       display: block;
-      color: var(--muted);
-      font-size: 0.75rem;
-      margin-bottom: 0.2rem;
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
     }
 
     .stat-card strong {
-      font-size: 0.95rem;
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--text);
     }
 
     .note-box {
-      margin-top: 1rem;
-      background: rgba(251, 191, 36, 0.1);
-      border-left: 3px solid var(--amber);
-      padding: 0.75rem 1rem;
-      border-radius: 6px;
+      margin-top: 1.25rem;
+      background: var(--gold-soft);
+      border: 1px solid var(--border-gold);
+      padding: 0.9rem 1.2rem;
+      border-radius: 14px;
       font-size: 0.88rem;
-      color: #fde68a;
+      color: #F3E5AB;
     }
 
     .itinerary-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.35rem;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
-    /* Accordion / Dropdowns */
+    .itinerary-header h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Sleek Glass Accordions */
     .day-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 0.85rem;
+      border-radius: 18px;
+      margin-bottom: 1rem;
       overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .day-card.open {
+      border-color: var(--border-gold);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
 
     .day-trigger {
@@ -390,18 +484,19 @@
       background: transparent;
       border: none;
       color: var(--text);
-      padding: 1.1rem 1.25rem;
+      padding: 1.3rem 1.6rem;
       text-align: left;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      transition: background 0.15s ease;
+      font-family: inherit;
+      transition: background 0.2s ease;
     }
 
     .day-trigger:hover {
-      background: var(--surface-hover);
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .day-left {
@@ -411,40 +506,51 @@
     }
 
     .day-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.12em;
     }
 
     .day-title {
-      font-size: 1.05rem;
-      font-weight: 700;
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: #FFFFFF;
     }
 
     .day-travel {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--muted);
     }
 
     .chevron {
-      font-size: 1.1rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
       color: var(--muted);
-      transition: transform 0.22s ease;
+      transition: all 0.28s ease;
       flex-shrink: 0;
     }
 
     .day-card.open .chevron {
       transform: rotate(180deg);
-      color: var(--accent);
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #08090D;
     }
 
     .day-body {
       display: none;
       border-top: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.45);
-      padding: 1.1rem 1.25rem 1.25rem;
+      background: rgba(8, 9, 13, 0.45);
+      padding: 1.45rem 1.65rem 1.65rem;
     }
 
     .day-card.open .day-body {
@@ -453,14 +559,14 @@
 
     .timeline {
       list-style: none;
-      border-left: 2px solid var(--border);
-      margin-left: 0.4rem;
-      padding-left: 1.15rem;
+      border-left: 1px solid rgba(229, 193, 88, 0.3);
+      margin-left: 0.5rem;
+      padding-left: 1.5rem;
     }
 
     .timeline li {
       position: relative;
-      margin-bottom: 0.9rem;
+      margin-bottom: 1.1rem;
     }
 
     .timeline li:last-child {
@@ -470,26 +576,31 @@
     .timeline li::before {
       content: "";
       position: absolute;
-      left: -1.52rem;
-      top: 0.42rem;
-      width: 10px;
-      height: 10px;
+      left: -1.82rem;
+      top: 0.45rem;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      background: var(--accent);
-      border: 2px solid var(--bg);
+      background: var(--gold);
+      box-shadow: 0 0 10px rgba(229, 193, 88, 0.7);
     }
 
     .time-tag {
       display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--amber);
-      margin-right: 0.4rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--gold-soft);
+      border: 1px solid rgba(229, 193, 88, 0.25);
+      padding: 0.14rem 0.55rem;
+      border-radius: 6px;
+      margin-right: 0.55rem;
     }
 
     .step-text {
-      font-size: 0.92rem;
-      color: #e2e8f0;
+      font-size: 0.94rem;
+      color: #E2E8F0;
+      font-weight: 400;
     }
 
     .bottom-nav {
@@ -497,34 +608,39 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      margin-top: 2rem;
-      padding-top: 1.25rem;
+      margin-top: 2.75rem;
+      padding-top: 1.75rem;
       border-top: 1px solid var(--border);
       flex-wrap: wrap;
     }
 
     @media (max-width: 600px) {
+      .card { height: 390px; }
       .sticky-nav { justify-content: center; }
-      .detail-banner { height: 210px; }
+      .detail-banner { height: 260px; }
+      .detail-banner-overlay { padding: 1.25rem; }
+      .hero-content { padding: 0.75rem 1.25rem 1.5rem; }
+      .day-trigger { padding: 1.1rem 1.2rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Cousins' Trip Planner 2027</h1>
-    <p>Departure from Ahmedabad (AMD) • Jan 16 to Jan 22/23, 2027 • Click any destination to explore its day-by-day schedule &amp; step-by-step dropdowns.</p>
+    <div class="eyebrow">Ahmedabad (AMD) • Jan 16 – Jan 23, 2027</div>
+    <h1>The Cousins' Escape</h1>
+    <p>Curated 7–8 day itineraries across 13 handpicked destinations. Select a card to unlock the full hour-by-hour schedule.</p>
   </header>
 
   <div class="container">
     <!-- HOME VIEW -->
     <div id="home-view">
       <div class="filters" id="filter-bar">
-        <button class="filter-btn active" data-filter="all">All (13)</button>
+        <button class="filter-btn active" data-filter="all">All Destinations (13)</button>
         <button class="filter-btn" data-filter="international">International (9)</button>
         <button class="filter-btn" data-filter="domestic">Domestic (4)</button>
-        <button class="filter-btn" data-filter="cold">Snow / Cold</button>
-        <button class="filter-btn" data-filter="warm">Warm / Beach</button>
+        <button class="filter-btn" data-filter="cold">Snow &amp; Mountains</button>
+        <button class="filter-btn" data-filter="warm">Beaches &amp; Sun</button>
       </div>
       <div class="grid" id="destinations-grid"></div>
     </div>
@@ -543,7 +659,7 @@
       <div class="hero-box" id="detail-hero"></div>
 
       <div class="itinerary-header">
-        <h3>Day-Wise Itinerary (Click any day to expand schedule)</h3>
+        <h3>Day-by-Day Schedule</h3>
         <button class="btn" id="toggle-all-btn" onclick="toggleAllDays()">Expand All Days</button>
       </div>
 
@@ -567,9 +683,9 @@
         climate: "cold",
         temp: "18°C Day / 2°C Night",
         flight: "~5–6 hrs (1 stop via Delhi)",
-        visa: "No Visa Required (Indians)",
-        bestFor: "Mountains, adventure, culture",
-        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1000&q=80",
+        visa: "No Visa Required",
+        bestFor: "Himalayan views, paragliding & jungle safaris",
+        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85",
         note: "Carry original Passport or Voter ID. January offers crystal-clear Himalayan views.",
         days: [
           {
@@ -665,9 +781,9 @@
         climate: "cold",
         temp: "9°C / 0°C (Sub-zero North)",
         flight: "~5–6 hrs (to Bagdogra)",
-        visa: "Domestic (Inner-Line Permit)",
-        bestFor: "Heavy snow, road trips, monasteries",
-        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1000&q=80",
+        visa: "Inner-Line Permit",
+        bestFor: "Heavy snow, mountain road trips & monasteries",
+        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
         note: "Carry 4 passport photos & Voter ID/Passport for North Sikkim permits. Heavy snow can occasionally close Nathula Pass.",
         days: [
           {
@@ -761,8 +877,8 @@
         temp: "14°C Day / 2°C Night",
         flight: "~6 hrs (to Bagdogra) + road",
         visa: "Entry Permit + SDF",
-        bestFor: "Peaceful winter, culture, scenic valleys",
-        image: "https://images.unsplash.com/photo-1553856622-d1b352e9a211?auto=format&fit=crop&w=1000&q=80",
+        bestFor: "Peaceful winter, dzongs & Tiger's Nest trek",
+        image: "https://images.unsplash.com/photo-1553856622-d1b352e9a211?auto=format&fit=crop&w=1200&q=85",
         note: "Carry original Passport or Voter ID (Aadhaar is NOT accepted). This itinerary uses the 8th day (Jan 23) for comfortable road return.",
         days: [
           {
@@ -863,9 +979,9 @@
         climate: "warm",
         temp: "30°C Coast / 20°C Hills",
         flight: "~3.5 hrs direct (FitsAir) or 1 stop",
-        visa: "Free 30-day ETA (apply online)",
-        bestFor: "Beaches, scenic train, wildlife, warm weather",
-        image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1000&q=80",
+        visa: "Free 30-day ETA",
+        bestFor: "South coast beaches, scenic train & safaris",
+        image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85",
         note: "January is peak dry season for the South Coast (Mirissa, Weligama, Galle). Direct flights from AMD to Colombo operate on FitsAir.",
         days: [
           {
@@ -956,8 +1072,8 @@
         temp: "7°C / 1°C (Sub-zero Mtns)",
         flight: "~7–8 hrs (1 stop)",
         visa: "Easy ASAN e-visa",
-        bestFor: "European vibes, nightlife, snow resorts",
-        image: "https://images.unsplash.com/photo-1596306499317-8490232098fa?auto=format&fit=crop&w=1000&q=80",
+        bestFor: "European architecture, nightlife & snow resorts",
+        image: "https://images.unsplash.com/photo-1596306499317-8490232098fa?auto=format&fit=crop&w=1200&q=85",
         note: "Baku is windy in January—pack a good windproof jacket. Bolt app works great for cabs inside Baku.",
         days: [
           {
@@ -1046,9 +1162,9 @@
         climate: "cold",
         temp: "7°C / -1°C (-11°C Gudauri)",
         flight: "~8–9 hrs (1 stop)",
-        visa: "e-Visa Required (strong docs)",
-        bestFor: "Skiing, Caucasus mountains, cafes",
-        image: "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=1000&q=80",
+        visa: "e-Visa Required",
+        bestFor: "Gudauri skiing, Caucasus peaks & old-town cafes",
+        image: "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=1200&q=85",
         note: "Carry printed hotel bookings, return flights, travel insurance & bank statements for smooth immigration. Do not combine with Kazakhstan in 7 days.",
         days: [
           {
@@ -1139,9 +1255,9 @@
         climate: "cold",
         temp: "-5°C Day / -15°C Night",
         flight: "~7–8 hrs (1 stop)",
-        visa: "Visa-Free (up to 14 days)",
-        bestFor: "Deep snow, skiing, frozen lakes",
-        image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=1000&q=80",
+        visa: "Visa-Free (14 Days)",
+        bestFor: "Deep winter snow, skiing & frozen alpine lakes",
+        image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=1200&q=85",
         note: "Proper winter gear (down jacket, gloves, snow boots) is mandatory. Yandex Go app works great for cabs in Almaty.",
         days: [
           {
@@ -1224,15 +1340,15 @@
       },
       {
         id: "vietnam",
-        name: "Vietnam (Bonus 1)",
+        name: "Vietnam",
         subtitle: "Da Nang, Hoi An & Phu Quoc Island",
         type: "international",
         climate: "warm",
         temp: "26°C Day / 18°C Night",
-        flight: "~5.5 hrs direct to Da Nang (VietJet)",
+        flight: "~5.5 hrs direct to Da Nang",
         visa: "Easy e-Visa",
-        bestFor: "Beaches, theme parks, nightlife",
-        image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1000&q=80",
+        bestFor: "Island beaches, theme parks & lantern nights",
+        image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=85",
         note: "Direct flights from AMD to Da Nang (VietJet) save huge travel time. Grab app works everywhere for cabs.",
         days: [
           {
@@ -1314,15 +1430,15 @@
       },
       {
         id: "andaman",
-        name: "Andaman Islands (Bonus 2)",
+        name: "Andaman Islands",
         subtitle: "Port Blair, Havelock & Neil Island",
         type: "domestic",
         climate: "warm",
         temp: "29°C Day / 22°C Night",
         flight: "~6 hrs (1 stop)",
-        visa: "Domestic (No Visa)",
-        bestFor: "Scuba diving, turquoise beaches, zero visa hassle",
-        image: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1000&q=80",
+        visa: "No Visa (Domestic)",
+        bestFor: "Scuba diving, white-sand beaches & ferries",
+        image: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1200&q=85",
         note: "Book Makruzz / Nautika private ferries in advance. January has the calmest seas and clearest scuba visibility.",
         days: [
           {
@@ -1401,15 +1517,15 @@
       },
       {
         id: "egypt",
-        name: "Egypt (Bonus 3)",
+        name: "Egypt",
         subtitle: "Cairo, Giza & Red Sea (Hurghada)",
         type: "international",
         climate: "warm",
         temp: "19°C Cairo / 22°C Red Sea",
         flight: "~8–10 hrs (1 stop)",
         visa: "e-Visa Required",
-        bestFor: "Pyramids, Red Sea coral reefs, desert safaris",
-        image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80",
+        bestFor: "Pyramids, Red Sea coral reefs & desert safaris",
+        image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1200&q=85",
         note: "Apply for Egypt's official e-visa at least 7 days prior. January is peak comfortable sightseeing weather.",
         days: [
           {
@@ -1490,15 +1606,15 @@
       },
       {
         id: "oman",
-        name: "Oman (Bonus 4)",
+        name: "Oman",
         subtitle: "Muscat, Wadi Shab, Wahiba Sands & Nizwa",
         type: "international",
         climate: "warm",
         temp: "24°C Day / 17°C Night",
         flight: "~5–6 hrs (1 stop)",
         visa: "e-Visa Required",
-        bestFor: "Road trips, desert glamping, turquoise wadis",
-        image: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=80",
+        bestFor: "4x4 road trips, desert glamping & emerald wadis",
+        image: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=85",
         note: "Renting a self-drive 4x4 SUV (Indian DL works with IDP) or hiring a private van makes Oman one of the best road trips for cousins.",
         days: [
           {
@@ -1577,15 +1693,15 @@
       },
       {
         id: "kerala",
-        name: "Kerala (Domestic)",
+        name: "Kerala",
         subtitle: "Kochi, Munnar, Thekkady, Alleppey & Varkala",
         type: "domestic",
         climate: "warm",
         temp: "32°C Coast / 10–25°C Munnar",
-        flight: "~2.5 hrs direct to Kochi (IndiGo)",
-        visa: "Domestic (No Visa)",
-        bestFor: "Tea hills, private houseboat, cliff cafes, surfing",
-        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1000&q=80",
+        flight: "~2.5 hrs direct to Kochi",
+        visa: "No Visa (Domestic)",
+        bestFor: "Tea hills, private houseboat & Varkala cliff",
+        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=85",
         note: "Direct 2.5-hour flight from Ahmedabad to Kochi! Splitting a Tempo Traveller and a private multi-bedroom houseboat makes group travel super smooth.",
         days: [
           {
@@ -1667,15 +1783,15 @@
       },
       {
         id: "meghalaya",
-        name: "Meghalaya (Domestic)",
+        name: "Meghalaya",
         subtitle: "Shillong, Cherrapunji & Dawki",
         type: "domestic",
         climate: "cold",
         temp: "15°C Day / 6°C Night",
         flight: "~5–6 hrs (to Guwahati)",
-        visa: "Domestic (No Visa)",
-        bestFor: "Glass-clear rivers, root bridges, caving, road trips",
-        image: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1000&q=80",
+        visa: "No Visa (Domestic)",
+        bestFor: "Glass-clear rivers, root bridges & waterfalls",
+        image: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=85",
         note: "January is the best month for Dawki's Umngot River—it turns completely transparent like glass!",
         days: [
           {
@@ -1774,27 +1890,23 @@
         card.className = "card";
         card.onclick = () => openDestination(idx);
         card.innerHTML = `
-          <div class="card-img-wrap">
-            <img src="${d.image}" alt="${d.name}" loading="lazy" onerror="this.style.display='none'" />
-            <div class="card-img-overlay">
-              <div class="card-top">
-                <span class="card-num">Option #${idx + 1}</span>
-                <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
-              </div>
+          <img class="card-bg" src="${d.image}" alt="${d.name}" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-gradient">
+            <div class="card-top">
+              <span class="card-num">0${idx + 1 < 10 ? idx + 1 : ""}${idx + 1 >= 10 ? idx + 1 : ""}</span>
+              <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
             </div>
-          </div>
-          <div class="card-body">
-            <div>
+            <div class="card-bottom">
               <h2>${d.name}</h2>
               <p class="card-sub">${d.subtitle}</p>
-            </div>
-            <div>
-              <div class="meta-list">
-                <div class="meta-item"><span>Jan Temp</span><strong>${d.temp}</strong></div>
-                <div class="meta-item"><span>From AMD</span><strong>${d.flight}</strong></div>
-                <div class="meta-item"><span>Visa / Entry</span><strong>${d.visa}</strong></div>
+              <div class="card-pills">
+                <span class="pill">${d.temp}</span>
+                <span class="pill">${d.flight}</span>
               </div>
-              <div class="card-cta">View Day-Wise Plan →</div>
+              <div class="card-footer">
+                <span class="visa-text">${d.visa}</span>
+                <span class="explore-link">Explore Plan →</span>
+              </div>
             </div>
           </div>
         `;
@@ -1813,17 +1925,17 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
 
       document.getElementById("dest-counter").textContent = `${currentIndex + 1} / ${destinations.length}`;
-      document.getElementById("top-prev-btn").textContent = `← ${destinations[prevIdx].name.split(" (")[0]}`;
-      document.getElementById("top-next-btn").textContent = `${destinations[nextIdx].name.split(" (")[0]} →`;
-      document.getElementById("bot-prev-btn").textContent = `← Prev: ${destinations[prevIdx].name.split(" (")[0]}`;
-      document.getElementById("bot-next-btn").textContent = `Next: ${destinations[nextIdx].name.split(" (")[0]} →`;
+      document.getElementById("top-prev-btn").textContent = `← ${destinations[prevIdx].name}`;
+      document.getElementById("top-next-btn").textContent = `${destinations[nextIdx].name} →`;
+      document.getElementById("bot-prev-btn").textContent = `← Prev: ${destinations[prevIdx].name}`;
+      document.getElementById("bot-next-btn").textContent = `Next: ${destinations[nextIdx].name} →`;
 
       document.getElementById("detail-hero").innerHTML = `
         <div class="detail-banner">
           <img src="${d.image}" alt="${d.name}" onerror="this.style.display='none'" />
           <div class="detail-banner-overlay">
-            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.45rem;">
-              <span class="card-num">Destination #${currentIndex + 1} of ${destinations.length}</span>
+            <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.5rem;">
+              <span class="card-num">Destination #${currentIndex + 1}</span>
               <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
             </div>
             <h2>${d.name}</h2>
@@ -1832,11 +1944,11 @@
         </div>
         <div class="hero-content">
           <div class="stats-grid">
-            <div class="stat-card"><small>January Temperature</small><strong>${d.temp}</strong></div>
-            <div class="stat-card"><small>Flight from Ahmedabad</small><strong>${d.flight}</strong></div>
-            <div class="stat-card"><small>Visa / Entry</small><strong>${d.visa}</strong></div>
+            <div class="stat-card"><small>January Climate</small><strong>${d.temp}</strong></div>
+            <div class="stat-card"><small>From Ahmedabad</small><strong>${d.flight}</strong></div>
+            <div class="stat-card"><small>Entry &amp; Visa</small><strong>${d.visa}</strong></div>
           </div>
-          ${d.note ? `<div class="note-box"><strong>Tip:</strong> ${d.note}</div>` : ""}
+          ${d.note ? `<div class="note-box"><strong>Travel Note:</strong> ${d.note}</div>` : ""}
         </div>
       `;
 
@@ -1850,7 +1962,7 @@
             <div class="day-left">
               <span class="day-label">${dayObj.day}</span>
               <span class="day-title">${dayObj.title}</span>
-              <span class="day-travel">Travel: ${dayObj.travel}</span>
+              <span class="day-travel">Transit: ${dayObj.travel}</span>
             </div>
             <span class="chevron">▼</span>
           </button>
