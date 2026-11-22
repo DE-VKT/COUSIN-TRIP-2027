@@ -193,22 +193,28 @@
 
     .meta-list {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
       border-top: 1px solid var(--border);
       padding-top: 0.8rem;
       font-size: 0.82rem;
     }
 
+    .meta-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
     .meta-item span {
-      display: block;
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: 0.75rem;
     }
 
     .meta-item strong {
       color: var(--text);
       font-weight: 600;
+      text-align: right;
     }
 
     .card-cta {
@@ -329,7 +335,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 0.85rem;
     }
 
@@ -498,7 +504,6 @@
     }
 
     @media (max-width: 600px) {
-      .meta-list { grid-template-columns: 1fr; }
       .sticky-nav { justify-content: center; }
       .detail-banner { height: 210px; }
     }
@@ -561,10 +566,9 @@
         type: "international",
         climate: "cold",
         temp: "18°C Day / 2°C Night",
-        budget: "₹35,000 – ₹45,000",
         flight: "~5–6 hrs (1 stop via Delhi)",
         visa: "No Visa Required (Indians)",
-        bestFor: "Mountains, adventure, budget-friendly",
+        bestFor: "Mountains, adventure, culture",
         image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1000&q=80",
         note: "Carry original Passport or Voter ID. January offers crystal-clear Himalayan views.",
         days: [
@@ -660,7 +664,6 @@
         type: "domestic",
         climate: "cold",
         temp: "9°C / 0°C (Sub-zero North)",
-        budget: "₹32,000 – ₹42,000",
         flight: "~5–6 hrs (to Bagdogra)",
         visa: "Domestic (Inner-Line Permit)",
         bestFor: "Heavy snow, road trips, monasteries",
@@ -756,9 +759,8 @@
         type: "international",
         climate: "cold",
         temp: "14°C Day / 2°C Night",
-        budget: "₹55,000 – ₹70,000",
         flight: "~6 hrs (to Bagdogra) + road",
-        visa: "Entry Permit + ₹1,200/night SDF",
+        visa: "Entry Permit + SDF",
         bestFor: "Peaceful winter, culture, scenic valleys",
         image: "https://images.unsplash.com/photo-1553856622-d1b352e9a211?auto=format&fit=crop&w=1000&q=80",
         note: "Carry original Passport or Voter ID (Aadhaar is NOT accepted). This itinerary uses the 8th day (Jan 23) for comfortable road return.",
@@ -860,7 +862,6 @@
         type: "international",
         climate: "warm",
         temp: "30°C Coast / 20°C Hills",
-        budget: "₹50,000 – ₹65,000",
         flight: "~3.5 hrs direct (FitsAir) or 1 stop",
         visa: "Free 30-day ETA (apply online)",
         bestFor: "Beaches, scenic train, wildlife, warm weather",
@@ -953,12 +954,11 @@
         type: "international",
         climate: "cold",
         temp: "7°C / 1°C (Sub-zero Mtns)",
-        budget: "₹75,000 – ₹95,000",
         flight: "~7–8 hrs (1 stop)",
-        visa: "Easy ASAN e-visa (~₹2,200)",
+        visa: "Easy ASAN e-visa",
         bestFor: "European vibes, nightlife, snow resorts",
         image: "https://images.unsplash.com/photo-1596306499317-8490232098fa?auto=format&fit=crop&w=1000&q=80",
-        note: "Baku is windy in January—pack a good windproof jacket. Bolt app works great for cheap cabs inside Baku.",
+        note: "Baku is windy in January—pack a good windproof jacket. Bolt app works great for cabs inside Baku.",
         days: [
           {
             day: "Day 1 • Jan 16",
@@ -1045,7 +1045,6 @@
         type: "international",
         climate: "cold",
         temp: "7°C / -1°C (-11°C Gudauri)",
-        budget: "₹85,000 – ₹1,05,000",
         flight: "~8–9 hrs (1 stop)",
         visa: "e-Visa Required (strong docs)",
         bestFor: "Skiing, Caucasus mountains, cafes",
@@ -1139,12 +1138,11 @@
         type: "international",
         climate: "cold",
         temp: "-5°C Day / -15°C Night",
-        budget: "₹75,000 – ₹95,000",
         flight: "~7–8 hrs (1 stop)",
         visa: "Visa-Free (up to 14 days)",
         bestFor: "Deep snow, skiing, frozen lakes",
         image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=1000&q=80",
-        note: "Proper winter gear (down jacket, gloves, snow boots) is mandatory. Yandex Go app works great for cheap cabs in Almaty.",
+        note: "Proper winter gear (down jacket, gloves, snow boots) is mandatory. Yandex Go app works great for cabs in Almaty.",
         days: [
           {
             day: "Day 1 • Jan 16",
@@ -1231,12 +1229,11 @@
         type: "international",
         climate: "warm",
         temp: "26°C Day / 18°C Night",
-        budget: "₹55,000 – ₹70,000",
         flight: "~5.5 hrs direct to Da Nang (VietJet)",
-        visa: "Easy e-Visa (~₹2,200)",
-        bestFor: "Beaches, theme parks, nightlife, value",
+        visa: "Easy e-Visa",
+        bestFor: "Beaches, theme parks, nightlife",
         image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1000&q=80",
-        note: "Direct flights from AMD to Da Nang (VietJet) save huge travel time. Grab app works everywhere for super cheap cabs.",
+        note: "Direct flights from AMD to Da Nang (VietJet) save huge travel time. Grab app works everywhere for cabs.",
         days: [
           {
             day: "Day 1 • Jan 16",
@@ -1322,7 +1319,6 @@
         type: "domestic",
         climate: "warm",
         temp: "29°C Day / 22°C Night",
-        budget: "₹42,000 – ₹55,000",
         flight: "~6 hrs (1 stop)",
         visa: "Domestic (No Visa)",
         bestFor: "Scuba diving, turquoise beaches, zero visa hassle",
@@ -1410,9 +1406,8 @@
         type: "international",
         climate: "warm",
         temp: "19°C Cairo / 22°C Red Sea",
-        budget: "₹80,000 – ₹1,00,000",
         flight: "~8–10 hrs (1 stop)",
-        visa: "e-Visa ($30 / ~₹2,600)",
+        visa: "e-Visa Required",
         bestFor: "Pyramids, Red Sea coral reefs, desert safaris",
         image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80",
         note: "Apply for Egypt's official e-visa at least 7 days prior. January is peak comfortable sightseeing weather.",
@@ -1500,7 +1495,6 @@
         type: "international",
         climate: "warm",
         temp: "24°C Day / 17°C Night",
-        budget: "₹65,000 – ₹80,000",
         flight: "~5–6 hrs (1 stop)",
         visa: "e-Visa Required",
         bestFor: "Road trips, desert glamping, turquoise wadis",
@@ -1588,12 +1582,11 @@
         type: "domestic",
         climate: "warm",
         temp: "32°C Coast / 10–25°C Munnar",
-        budget: "₹28,000 – ₹38,000",
         flight: "~2.5 hrs direct to Kochi (IndiGo)",
         visa: "Domestic (No Visa)",
         bestFor: "Tea hills, private houseboat, cliff cafes, surfing",
         image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1000&q=80",
-        note: "Direct 2.5-hour flight from Ahmedabad to Kochi! Splitting a Tempo Traveller and a private multi-bedroom houseboat keeps costs super low.",
+        note: "Direct 2.5-hour flight from Ahmedabad to Kochi! Splitting a Tempo Traveller and a private multi-bedroom houseboat makes group travel super smooth.",
         days: [
           {
             day: "Day 1 • Jan 16",
@@ -1679,7 +1672,6 @@
         type: "domestic",
         climate: "cold",
         temp: "15°C Day / 6°C Night",
-        budget: "₹30,000 – ₹40,000",
         flight: "~5–6 hrs (to Guwahati)",
         visa: "Domestic (No Visa)",
         bestFor: "Glass-clear rivers, root bridges, caving, road trips",
@@ -1799,7 +1791,6 @@
             <div>
               <div class="meta-list">
                 <div class="meta-item"><span>Jan Temp</span><strong>${d.temp}</strong></div>
-                <div class="meta-item"><span>Est. Budget</span><strong>${d.budget}</strong></div>
                 <div class="meta-item"><span>From AMD</span><strong>${d.flight}</strong></div>
                 <div class="meta-item"><span>Visa / Entry</span><strong>${d.visa}</strong></div>
               </div>
@@ -1842,7 +1833,6 @@
         <div class="hero-content">
           <div class="stats-grid">
             <div class="stat-card"><small>January Temperature</small><strong>${d.temp}</strong></div>
-            <div class="stat-card"><small>Est. All-Inclusive Budget</small><strong>${d.budget}</strong></div>
             <div class="stat-card"><small>Flight from Ahmedabad</small><strong>${d.flight}</strong></div>
             <div class="stat-card"><small>Visa / Entry</small><strong>${d.visa}</strong></div>
           </div>
