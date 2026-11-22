@@ -13,7 +13,6 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #38bdf8;
-      --accent-dark: #0284c7;
       --green: #34d399;
       --amber: #fbbf24;
       --purple: #a78bfa;
@@ -91,64 +90,105 @@
     /* Grid View */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.15rem;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 1.25rem;
+      overflow: hidden;
       cursor: pointer;
       transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     .card:hover {
       transform: translateY(-4px);
       border-color: var(--accent);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      height: 175px;
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .card:hover .card-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .card-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.1) 55%, rgba(15, 23, 42, 0.35) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.75rem 0.9rem;
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.5rem;
-      margin-bottom: 0.75rem;
     }
 
     .card-num {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .badge {
       font-size: 0.72rem;
       font-weight: 700;
+      color: #f8fafc;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(4px);
       padding: 0.2rem 0.55rem;
       border-radius: 999px;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .badge-intl { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
-    .badge-dom { background: rgba(52, 211, 153, 0.15); color: var(--green); }
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+    }
+
+    .badge-intl { background: rgba(139, 92, 246, 0.85); color: #fff; }
+    .badge-dom { background: rgba(16, 185, 129, 0.85); color: #052e16; }
+
+    .card-body {
+      padding: 1.1rem 1.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
 
     .card h2 {
-      font-size: 1.25rem;
-      margin-bottom: 0.25rem;
+      font-size: 1.22rem;
+      margin-bottom: 0.2rem;
     }
 
     .card-sub {
       color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
+      font-size: 0.84rem;
+      margin-bottom: 0.9rem;
     }
 
     .meta-list {
@@ -156,7 +196,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 0.6rem;
       border-top: 1px solid var(--border);
-      padding-top: 0.85rem;
+      padding-top: 0.8rem;
       font-size: 0.82rem;
     }
 
@@ -172,7 +212,7 @@
     }
 
     .card-cta {
-      margin-top: 1rem;
+      margin-top: 0.95rem;
       text-align: right;
       font-size: 0.85rem;
       font-weight: 700;
@@ -245,18 +285,46 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 1.5rem;
+      overflow: hidden;
       margin-bottom: 1.5rem;
     }
 
-    .hero-box h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      margin-bottom: 0.35rem;
+    .detail-banner {
+      position: relative;
+      height: 260px;
+      width: 100%;
+      background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    }
+
+    .detail-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .detail-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.35) 55%, rgba(15, 23, 42, 0.25) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+    }
+
+    .detail-banner-overlay h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+      margin-bottom: 0.2rem;
     }
 
     .hero-tagline {
-      color: var(--muted);
-      margin-bottom: 1.15rem;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .hero-content {
+      padding: 1.35rem 1.5rem 1.5rem;
     }
 
     .stats-grid {
@@ -432,6 +500,7 @@
     @media (max-width: 600px) {
       .meta-list { grid-template-columns: 1fr; }
       .sticky-nav { justify-content: center; }
+      .detail-banner { height: 210px; }
     }
   </style>
 </head>
@@ -496,6 +565,7 @@
         flight: "~5–6 hrs (1 stop via Delhi)",
         visa: "No Visa Required (Indians)",
         bestFor: "Mountains, adventure, budget-friendly",
+        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1000&q=80",
         note: "Carry original Passport or Voter ID. January offers crystal-clear Himalayan views.",
         days: [
           {
@@ -594,6 +664,7 @@
         flight: "~5–6 hrs (to Bagdogra)",
         visa: "Domestic (Inner-Line Permit)",
         bestFor: "Heavy snow, road trips, monasteries",
+        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1000&q=80",
         note: "Carry 4 passport photos & Voter ID/Passport for North Sikkim permits. Heavy snow can occasionally close Nathula Pass.",
         days: [
           {
@@ -689,6 +760,7 @@
         flight: "~6 hrs (to Bagdogra) + road",
         visa: "Entry Permit + ₹1,200/night SDF",
         bestFor: "Peaceful winter, culture, scenic valleys",
+        image: "https://images.unsplash.com/photo-1553856622-d1b352e9a211?auto=format&fit=crop&w=1000&q=80",
         note: "Carry original Passport or Voter ID (Aadhaar is NOT accepted). This itinerary uses the 8th day (Jan 23) for comfortable road return.",
         days: [
           {
@@ -792,6 +864,7 @@
         flight: "~3.5 hrs direct (FitsAir) or 1 stop",
         visa: "Free 30-day ETA (apply online)",
         bestFor: "Beaches, scenic train, wildlife, warm weather",
+        image: "https://images.unsplash.com/photo-1586613835341-78c143aef52c?auto=format&fit=crop&w=1000&q=80",
         note: "January is peak dry season for the South Coast (Mirissa, Weligama, Galle). Direct flights from AMD to Colombo operate on FitsAir.",
         days: [
           {
@@ -884,6 +957,7 @@
         flight: "~7–8 hrs (1 stop)",
         visa: "Easy ASAN e-visa (~₹2,200)",
         bestFor: "European vibes, nightlife, snow resorts",
+        image: "https://images.unsplash.com/photo-1596306499317-8490232098fa?auto=format&fit=crop&w=1000&q=80",
         note: "Baku is windy in January—pack a good windproof jacket. Bolt app works great for cheap cabs inside Baku.",
         days: [
           {
@@ -975,6 +1049,7 @@
         flight: "~8–9 hrs (1 stop)",
         visa: "e-Visa Required (strong docs)",
         bestFor: "Skiing, Caucasus mountains, cafes",
+        image: "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=1000&q=80",
         note: "Carry printed hotel bookings, return flights, travel insurance & bank statements for smooth immigration. Do not combine with Kazakhstan in 7 days.",
         days: [
           {
@@ -1068,6 +1143,7 @@
         flight: "~7–8 hrs (1 stop)",
         visa: "Visa-Free (up to 14 days)",
         bestFor: "Deep snow, skiing, frozen lakes",
+        image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=1000&q=80",
         note: "Proper winter gear (down jacket, gloves, snow boots) is mandatory. Yandex Go app works great for cheap cabs in Almaty.",
         days: [
           {
@@ -1159,6 +1235,7 @@
         flight: "~5.5 hrs direct to Da Nang (VietJet)",
         visa: "Easy e-Visa (~₹2,200)",
         bestFor: "Beaches, theme parks, nightlife, value",
+        image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1000&q=80",
         note: "Direct flights from AMD to Da Nang (VietJet) save huge travel time. Grab app works everywhere for super cheap cabs.",
         days: [
           {
@@ -1249,6 +1326,7 @@
         flight: "~6 hrs (1 stop)",
         visa: "Domestic (No Visa)",
         bestFor: "Scuba diving, turquoise beaches, zero visa hassle",
+        image: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1000&q=80",
         note: "Book Makruzz / Nautika private ferries in advance. January has the calmest seas and clearest scuba visibility.",
         days: [
           {
@@ -1336,6 +1414,7 @@
         flight: "~8–10 hrs (1 stop)",
         visa: "e-Visa ($30 / ~₹2,600)",
         bestFor: "Pyramids, Red Sea coral reefs, desert safaris",
+        image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80",
         note: "Apply for Egypt's official e-visa at least 7 days prior. January is peak comfortable sightseeing weather.",
         days: [
           {
@@ -1425,6 +1504,7 @@
         flight: "~5–6 hrs (1 stop)",
         visa: "e-Visa Required",
         bestFor: "Road trips, desert glamping, turquoise wadis",
+        image: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=80",
         note: "Renting a self-drive 4x4 SUV (Indian DL works with IDP) or hiring a private van makes Oman one of the best road trips for cousins.",
         days: [
           {
@@ -1512,6 +1592,7 @@
         flight: "~2.5 hrs direct to Kochi (IndiGo)",
         visa: "Domestic (No Visa)",
         bestFor: "Tea hills, private houseboat, cliff cafes, surfing",
+        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1000&q=80",
         note: "Direct 2.5-hour flight from Ahmedabad to Kochi! Splitting a Tempo Traveller and a private multi-bedroom houseboat keeps costs super low.",
         days: [
           {
@@ -1602,6 +1683,7 @@
         flight: "~5–6 hrs (to Guwahati)",
         visa: "Domestic (No Visa)",
         bestFor: "Glass-clear rivers, root bridges, caving, road trips",
+        image: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1000&q=80",
         note: "January is the best month for Dawki's Umngot River—it turns completely transparent like glass!",
         days: [
           {
@@ -1700,22 +1782,29 @@
         card.className = "card";
         card.onclick = () => openDestination(idx);
         card.innerHTML = `
-          <div>
-            <div class="card-top">
-              <span class="card-num">Option #${idx + 1}</span>
-              <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
+          <div class="card-img-wrap">
+            <img src="${d.image}" alt="${d.name}" loading="lazy" onerror="this.style.display='none'" />
+            <div class="card-img-overlay">
+              <div class="card-top">
+                <span class="card-num">Option #${idx + 1}</span>
+                <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
+              </div>
             </div>
-            <h2>${d.name}</h2>
-            <p class="card-sub">${d.subtitle}</p>
           </div>
-          <div>
-            <div class="meta-list">
-              <div class="meta-item"><span>Jan Temp</span><strong>${d.temp}</strong></div>
-              <div class="meta-item"><span>Est. Budget</span><strong>${d.budget}</strong></div>
-              <div class="meta-item"><span>From AMD</span><strong>${d.flight}</strong></div>
-              <div class="meta-item"><span>Visa / Entry</span><strong>${d.visa}</strong></div>
+          <div class="card-body">
+            <div>
+              <h2>${d.name}</h2>
+              <p class="card-sub">${d.subtitle}</p>
             </div>
-            <div class="card-cta">View Day-Wise Plan →</div>
+            <div>
+              <div class="meta-list">
+                <div class="meta-item"><span>Jan Temp</span><strong>${d.temp}</strong></div>
+                <div class="meta-item"><span>Est. Budget</span><strong>${d.budget}</strong></div>
+                <div class="meta-item"><span>From AMD</span><strong>${d.flight}</strong></div>
+                <div class="meta-item"><span>Visa / Entry</span><strong>${d.visa}</strong></div>
+              </div>
+              <div class="card-cta">View Day-Wise Plan →</div>
+            </div>
           </div>
         `;
         grid.appendChild(card);
@@ -1739,19 +1828,26 @@
       document.getElementById("bot-next-btn").textContent = `Next: ${destinations[nextIdx].name.split(" (")[0]} →`;
 
       document.getElementById("detail-hero").innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.4rem;">
-          <span class="card-num">Destination #${currentIndex + 1} of ${destinations.length}</span>
-          <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
+        <div class="detail-banner">
+          <img src="${d.image}" alt="${d.name}" onerror="this.style.display='none'" />
+          <div class="detail-banner-overlay">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.45rem;">
+              <span class="card-num">Destination #${currentIndex + 1} of ${destinations.length}</span>
+              <span class="badge ${d.type === 'international' ? 'badge-intl' : 'badge-dom'}">${d.type}</span>
+            </div>
+            <h2>${d.name}</h2>
+            <p class="hero-tagline">${d.subtitle} — ${d.bestFor}</p>
+          </div>
         </div>
-        <h2>${d.name}</h2>
-        <p class="hero-tagline">${d.subtitle} — ${d.bestFor}</p>
-        <div class="stats-grid">
-          <div class="stat-card"><small>January Temperature</small><strong>${d.temp}</strong></div>
-          <div class="stat-card"><small>Est. All-Inclusive Budget</small><strong>${d.budget}</strong></div>
-          <div class="stat-card"><small>Flight from Ahmedabad</small><strong>${d.flight}</strong></div>
-          <div class="stat-card"><small>Visa / Entry</small><strong>${d.visa}</strong></div>
+        <div class="hero-content">
+          <div class="stats-grid">
+            <div class="stat-card"><small>January Temperature</small><strong>${d.temp}</strong></div>
+            <div class="stat-card"><small>Est. All-Inclusive Budget</small><strong>${d.budget}</strong></div>
+            <div class="stat-card"><small>Flight from Ahmedabad</small><strong>${d.flight}</strong></div>
+            <div class="stat-card"><small>Visa / Entry</small><strong>${d.visa}</strong></div>
+          </div>
+          ${d.note ? `<div class="note-box"><strong>Tip:</strong> ${d.note}</div>` : ""}
         </div>
-        ${d.note ? `<div class="note-box"><strong>Tip:</strong> ${d.note}</div>` : ""}
       `;
 
       const daysContainer = document.getElementById("days-container");
